@@ -1,5 +1,5 @@
-
 from pathlib import Path
+from collections import Counter
 from openpyxl import load_workbook
 
 
@@ -10,9 +10,7 @@ ARCHIVO = Path(
 
 def main():
     if not ARCHIVO.exists():
-        raise FileNotFoundError(
-            f"No se encontró el archivo: {ARCHIVO}"
-        )
+        raise FileNotFoundError(f"No se encontró: {ARCHIVO}")
 
     libro = load_workbook(
         ARCHIVO,
@@ -20,33 +18,88 @@ def main():
         data_only=True
     )
 
+    hoja = libro.active
+    filas = hoja.iter_rows(values_only=True)
+
+    encabezados = next(filas)
+
+    datos = [
+        dict(zip(encabezados, fila))
+        for fila in filas
+        if any(valor is not None for valor in fila)
+    ]
+
     print("=" * 65)
-    print("INSPECCIÓN DE ARCHIVO SHF")
+    print("ANÁLISIS DE COBERTURA - SHF")
     print("=" * 65)
-    print(f"Archivo: {ARCHIVO.name}")
-    print(f"Hojas encontradas: {len(libro.sheetnames)}")
 
-    for nombre in libro.sheetnames:
-        hoja = libro[nombre]
+    print(f"Total de registros: {len(datos)}")
 
-        print("\n" + "-" * 65)
-        print(f"HOJA: {nombre}")
-        print(f"Filas aproximadas: {hoja.max_row}")
-        print(f"Columnas aproximadas: {hoja.max_column}")
+    estados = Counter(
+        str(r["Estado"]).strip()
+        for r in datos
+        if r.get("Estado") not in (None, "")
+    )
 
-        filas_mostradas = 0
+    print("\nESTADOS ENCONTRADOS:")
+    for estado, cantidad in sorted(estados.items()):
+        print(f"  {estado}: {cantidad}")
 
-        for fila in hoja.iter_rows(values_only=True):
-            if any(valor is not None for valor in fila):
-                print(fila)
-                filas_mostradas += 1
+    municipios = Counter(
+        str(r["Municipio"]).strip()
+        for r in datos
+        if r.get("Municipio") not in (None, "")
+    )
 
-            if filas_mostradas >= 6:
-                break
+    print(f"\nTotal de municipios identificados: {len(municipios)}")
+
+    colima = [
+        r for r in datos
+        if str(r.get("Estado", "")).strip().lower() == "colima"
+    ]
+
+    print(f"\nREGISTROS DEL ESTADO DE COLIMA: {len(colima)}")
+
+    if colima:
+        municipios_colima = sorted({
+            str(r["Municipio"]).strip()
+            for r in colima
+            if r.get("Municipio") not in (None, "")
+        })
+
+        print("\nMUNICIPIOS DE COLIMA:")
+        for municipio in municipios_colima:
+            print(f"  {municipio}")
+
+        periodos = sorted({
+            (r["Año"], r["Trimestre"])
+            for r in colima
+            if r.get("Año") is not None
+            and r.get("Trimestre") is not None
+        })
+
+        print(f"\nPeriodos año-trimestre de Colima: {len(periodos)}")
+
+        por_anio = Counter(anio for anio, trimestre in periodos)
+
+        print("\nPERIODOS POR AÑO:")
+        for anio in sorted(por_anio):
+            print(f"  {anio}: {por_anio[anio]} trimestres")
+
+    else:
+        print("No se encontraron registros con Estado = Colima.")
+
+    print("\nVALORES FALTANTES:")
+    for columna in encabezados:
+        faltantes = sum(
+            1 for r in datos
+            if r.get(columna) is None
+        )
+        print(f"  {columna}: {faltantes}")
 
     libro.close()
 
-    print("\nINSPECCIÓN TERMINADA")
+    print("\nANÁLISIS TERMINADO")
     print("=" * 65)
 
 
