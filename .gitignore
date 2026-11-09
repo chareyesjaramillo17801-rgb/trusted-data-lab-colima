@@ -3,8 +3,6 @@ __pycache__/
 .pytest_cache/
 .env
 *.pyc
-data/bronce/*
-!data/bronce/.gitkeep
 data/plata/*
 !data/plata/.gitkeep
 data/oro/*
