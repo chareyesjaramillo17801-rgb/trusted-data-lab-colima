@@ -51,7 +51,11 @@ La validación comercial con participantes del sector inmobiliario continúa pen
 
 ## Entrevista y validación del cliente
 
-**Estado:** entrevista exploratoria realizada.
+**Estado de la entrevista: cumplido.**
+
+Se realizó una entrevista escrita de aproximadamente 15 minutos, con ocho preguntas respondidas por una persona que busca vivienda en Tecomán, Colima. El docente confirmó que acepta esta modalidad para satisfacer el requisito de entrevista de E0.
+
+La entrevista tiene carácter exploratorio. La validación comercial con agentes, asesores o agencias inmobiliarias continúa pendiente.
 
 - Perfil: persona que busca vivienda en renta.
 - Ubicación de búsqueda: Tecomán, Colima.
@@ -98,12 +102,11 @@ Los avances técnicos y documentales se encuentran distribuidos en:
 
 ## Pendientes para el cierre de E0
 
-1. Confirmar con el docente si acepta la entrevista escrita como evidencia del requisito de duración mínima.
-2. Intentar validar la necesidad comercial y la disposición de pago con un participante del sector inmobiliario.
-3. Comprobar la evidencia de los registros PSP y sus archivos de respaldo.
-4. Revisar la trazabilidad de los archivos originales y sus metadatos.
-5. Consolidar la relatoría de actividades.
-6. Comprobar la consistencia de todos los documentos y archivos del repositorio.
-7. Crear la etiqueta `e0` únicamente después de la revisión final.
+1. Intentar validar la necesidad comercial y la disposición de pago con un participante del sector inmobiliario.
+2. Comprobar la evidencia de los registros PSP y sus archivos de respaldo.
+3. Revisar la trazabilidad de los archivos originales y sus metadatos.
+4. Consolidar la relatoría de actividades.
+5. Comprobar la consistencia de todos los documentos y archivos del repositorio.
+6. Crear la etiqueta `e0` únicamente después de la revisión final.
 
 **Estado general:** E0 cuenta con avances sustanciales en planteamiento, fuentes, captura, validación y documentación. El cierre formal queda sujeto a la revisión de los pendientes y a los criterios de aceptación de la entrega.
