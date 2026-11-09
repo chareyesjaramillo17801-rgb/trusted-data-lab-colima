@@ -48,8 +48,12 @@ def buscar_columna(columnas, posibles_nombres):
 
 def main():
     archivos = sorted(
-        CARPETA.glob("*.json"),
-        key=lambda archivo: archivo.name,
+    (
+        archivo
+        for archivo in CARPETA.glob("*.json")
+        if not archivo.name.endswith(".metadata.json")
+    ),
+    key=lambda archivo: archivo.name,
         reverse=True
     )
 
