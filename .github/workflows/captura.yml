@@ -1,0 +1,35 @@
+name: Captura de fuentes
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 13 * * *' # diario 13:17 UTC
+permissions:
+  contents: write
+jobs:
+  captura:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Registro SNIIV
+        run: python -m extractores.registro_sniiv
+      - name: Inventario SNIIV (si se configuró URL)
+        if: ${{ vars.INVENTARIO_SNIIV_URL != '' }}
+        env:
+          INVENTARIO_SNIIV_URL: ${{ vars.INVENTARIO_SNIIV_URL }}
+        run: python -m extractores.inventario_sniiv
+      - name: Datos abiertos SHF (si se configuró URL)
+        if: ${{ vars.SHF_DATOS_URL != '' }}
+        env:
+          SHF_DATOS_URL: ${{ vars.SHF_DATOS_URL }}
+        run: python -m extractores.shf
+      - name: Guardar captura
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/bronce
+          git diff --cached --quiet || git commit -m "chore(data): captura automatizada"
+          git push
