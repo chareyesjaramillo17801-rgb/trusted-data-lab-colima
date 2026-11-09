@@ -54,16 +54,43 @@ La publicación consultada permite identificar el archivo y la nota metodológic
 
 ## 4. Revisión de robots.txt
 
-Se intentó consultar los siguientes archivos:
+Se realizaron consultas directas a los archivos robots.txt de los dominios institucionales.
 
-- https://sniiv.sedatu.gob.mx/robots.txt
-- https://www.gob.mx/robots.txt
+### SNIIV – SEDATU
 
-El contenido de ambos archivos no pudo recuperarse durante la revisión realizada.
+URL consultada: https://sniiv.sedatu.gob.mx/robots.txt
 
-Por lo tanto, su estado queda pendiente de verificación directa y no se afirma que autoricen o prohíban la extracción automatizada.
+**Resultado:** el servidor respondió que la página no se encuentra disponible.
 
-La revisión de robots.txt se considera independiente de las condiciones de uso y licencias de los conjuntos de datos.
+No fue posible recuperar el contenido del archivo. Por lo tanto, no se puede determinar mediante esta consulta qué directrices establece para los rastreadores.
+
+La imposibilidad de consultar el archivo no se interpreta como autorización ni prohibición de extracción.
+
+### SHF – Portal gob.mx
+
+URL consultada: https://www.gob.mx/robots.txt
+
+**Resultado:** archivo accesible.
+
+Se observaron los siguientes grupos de agentes:
+
+- Googlebot.
+- googlebot-image.
+- googlebot-mobile.
+- AdsBot-Google.
+
+En los grupos observados, la directiva `Disallow:` aparece vacía.
+
+Esto indica que no se especifican rutas prohibidas para esos agentes en los grupos consultados. No implica autorización general para cualquier rastreador ni sustituye las condiciones de uso de la información.
+
+### Conclusión de la revisión
+
+La consulta de robots.txt pudo realizarse parcialmente:
+
+- SNIIV: archivo no encontrado.
+- gob.mx: archivo accesible, con directivas observadas para determinados agentes.
+
+Se conservará esta limitación en la documentación y se respetarán las condiciones de uso publicadas por las instituciones responsables.
 
 ## 5. Tratamiento responsable de la información
 
