@@ -54,7 +54,9 @@ También se identificó una publicación institucional independiente titulada «
 4. Documentar las transformaciones realizadas.
 5. Verificar las condiciones aplicables antes de distribuir comercialmente conjuntos derivados.
 
-**Conclusión:** SHF constituye una fuente pública identificada institucionalmente como datos abiertos. Se documenta su procedencia y se mantiene pendiente confirmar el alcance específico de las condiciones de reutilización del archivo utilizado.
+Conclusión: El índice SHF utilizado se publica en el portal oficial de la Sociedad Hipotecaria Federal como un recurso de datos abiertos. Su reutilización se documenta conforme al marco de datos abiertos de la Administración Pública Federal y los Términos de Libre Uso MX.
+
+El proyecto conservará la atribución a SHF, la liga de consulta y la fecha de descarga; mantendrá los datos originales sin alteraciones en la zona Bronce y documentará cualquier transformación. Asimismo, aclarará que los análisis y resultados del observatorio son propios y no representan una postura oficial de SHF.
 
 **Fuentes consultadas:**
 
