@@ -30,27 +30,37 @@ La ficha de metadatos del portal de datos abiertos del SNIIV establece:
 - Evitar realizar solicitudes innecesarias al servicio.
 - Reconocer la fuente institucional en los análisis y resultados publicados.
 
-## 3. Fuente SHF – Sociedad Hipotecaria Federal
+## 3. ### Sociedad Hipotecaria Federal (SHF)
 
-**Publicación oficial:** https://www.gob.mx/shf/documentos/indice-shf-de-precios-de-la-vivienda-en-mexico-2025-a-2026
+Se consultó la publicación oficial «Índice SHF de Precios de la Vivienda en México 2025 a 2026», publicada el 10 de agosto de 2026.
 
-**Conjunto utilizado:** Índice SHF de precios de la vivienda, datos abiertos, segundo trimestre de 2026.
+La publicación ofrece documentos descargables, entre ellos el archivo «Índice SHF datos abiertos T2 2026» y una nota metodológica.
 
-**Revisión de condiciones:**
+También se identificó una publicación institucional independiente titulada «Datos abiertos, Índice SHF».
 
-La SHF publica los índices de precios de vivienda y archivos descargables de datos abiertos mediante su portal institucional.
+**Resultados de la revisión:**
 
-La publicación consultada permite identificar el archivo y la nota metodológica correspondiente. No se identificó en la página revisada una licencia específica que permita afirmar que cualquier modalidad de reutilización está autorizada sin condiciones.
+- La información se encuentra disponible públicamente en el portal oficial de SHF.
+- La institución identifica el índice como un recurso de datos abiertos.
+- La publicación consultada no muestra directamente una licencia específica para el archivo descargado.
+- Se identificaron los Términos de Libre Uso MX del Gobierno Federal como marco de referencia para el uso de conjuntos de datos abiertos.
+- No se afirma que exista autorización ilimitada para cualquier modalidad de reutilización sin verificar la aplicabilidad de dichos términos al archivo específico.
 
-**Medidas adoptadas:**
+**Criterios adoptados para el proyecto:**
 
-- Identificar a la Sociedad Hipotecaria Federal como fuente.
-- Conservar el archivo original descargado.
-- Documentar el periodo y la fecha de consulta.
-- Mantener la información original en la zona Bronce.
-- Consultar la nota metodológica antes de interpretar los indicadores.
-- Reconocer la fuente en los análisis y resultados.
-- No atribuir a la fuente información que no contiene.
+1. Identificar siempre a Sociedad Hipotecaria Federal como fuente original.
+2. Conservar el nombre del archivo y la fecha de consulta.
+3. No alterar los datos originales almacenados en la zona Bronce.
+4. Documentar las transformaciones realizadas.
+5. Verificar las condiciones aplicables antes de distribuir comercialmente conjuntos derivados.
+
+**Conclusión:** SHF constituye una fuente pública identificada institucionalmente como datos abiertos. Se documenta su procedencia y se mantiene pendiente confirmar el alcance específico de las condiciones de reutilización del archivo utilizado.
+
+**Fuentes consultadas:**
+
+- https://www.gob.mx/shf/documentos/indice-shf-de-precios-de-la-vivienda-en-mexico-2025-a-2026
+- https://www.gob.mx/shf/documentos/datos-abiertos-indice-shf?idiom=es
+- https://www.datos.gob.mx/libreusomx
 
 ## 4. Revisión de robots.txt
 
