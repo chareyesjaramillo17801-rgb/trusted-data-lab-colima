@@ -148,13 +148,36 @@ def main():
         })
         print(f"\nAños disponibles: {', '.join(anios)}")
 
-    if columna_mes:
-        meses = sorted({
-            str(r[columna_mes])
+    
+if columna_mes:
+    meses = sorted({
+        str(r[columna_mes])
+        for r in registros
+        if r.get(columna_mes) not in (None, "")
+    })
+    print(f"\nMeses disponibles: {', '.join(meses)}")
+
+    if columna_anio:
+        periodos = {
+            (
+                str(r[columna_anio]).strip(),
+                str(r[columna_mes]).strip()
+            )
             for r in registros
-            if r.get(columna_mes) not in (None, "")
-        })
-        print(f"Meses disponibles: {', '.join(meses)}")
+            if r.get(columna_anio) not in (None, "")
+            and r.get(columna_mes) not in (None, "")
+        }
+
+        print(f"Periodos año-mes únicos: {len(periodos)}")
+
+        print("\nPERIODOS POR AÑO:")
+        conteo_por_anio = Counter(
+            anio for anio, mes in periodos
+        )
+
+        for anio in sorted(conteo_por_anio):
+            print(f"  {anio}: {conteo_por_anio[anio]} meses")
+
 
     print("\nVALIDACIÓN TERMINADA.")
     print("=" * 60)
