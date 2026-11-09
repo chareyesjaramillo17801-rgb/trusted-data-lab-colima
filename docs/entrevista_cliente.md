@@ -8,8 +8,9 @@
 - **Medio de aplicación:** Mensajería escrita.
 - **Duración estimada:** Aproximadamente 15 minutos.
 - **Número de preguntas:** 8.
-- **Fecha:** [Agregar fecha real de la entrevista].
-- **Consentimiento:** [Confirmar autorización para utilizar las respuestas con fines académicos].
+- **Fecha:** 9 de Noviembre de 2026.
+- **Hora:** 12:07 p. m.
+- **Consentimiento:** confirmada.
 
 ## 2. Objetivo
 
