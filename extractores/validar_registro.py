@@ -121,7 +121,7 @@ def main():
         columnas, {"municipio", "nombremunicipio"}
     )
     columna_anio = buscar_columna(
-        columnas, {"anio", "year"}
+        columnas, {"anio", "ano", "year"}
     )
     columna_mes = buscar_columna(
         columnas, {"mes", "month"}
