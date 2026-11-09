@@ -1,1 +1,8 @@
-fecha,inicio,fin,interrupcion_min,fase,actividad
+actividad,tiempo_horas,tipo_registro,observaciones
+Configuracion de GitHub y estructura,1,estimacion_retrospectiva,Configuracion inicial del repositorio y carpetas
+Extractor SNIIV,2,estimacion_retrospectiva,Desarrollo y pruebas del extractor
+Incorporacion y validacion SHF,2,estimacion_retrospectiva,Incorporacion del archivo y validacion de calidad
+Documentacion del planteamiento y ficha E0,1,estimacion_retrospectiva,Redaccion y actualizacion documental
+Configuracion de GitHub Actions,1,estimacion_retrospectiva,Automatizacion de la captura
+Etica y legalidad,1,estimacion_retrospectiva,Revision y documentacion de fuentes
+Entrevista exploratoria,0.25,estimacion_retrospectiva,Entrevista escrita de aproximadamente 15 minutos
