@@ -83,3 +83,45 @@ Antes de realizar análisis estadísticos será necesario revisar las categoría
 ## 8. Conclusión
 
 El archivo SHF cumple con el requisito de disponer de una serie histórica superior a 36 periodos. Sus 86 periodos trimestrales identificados para Colima representan una fuente útil para estudiar la evolución de los precios de vivienda y complementar la información mensual obtenida de SNIIV.
+
+## 9. Validación adicional de duplicados y cobertura municipal
+
+Se realizó una segunda validación para comprobar la integridad de los registros correspondientes al estado de Colima.
+
+### Resultados de duplicados
+
+| Indicador | Resultado |
+|---|---:|
+| Filas completamente duplicadas | 0 |
+| Claves dimensionales duplicadas | 0 |
+
+No se identificaron registros duplicados en las comprobaciones realizadas.
+
+### Cobertura por municipio
+
+| Municipio | Registros | Periodos disponibles | Periodos faltantes |
+|---|---:|---:|---:|
+| Manzanillo | 86 | 86 | 0 |
+| Villa de Álvarez | 86 | 86 | 0 |
+
+Ambos municipios cuentan con los 86 periodos trimestrales identificados para Colima.
+
+### Valores faltantes
+
+En los registros de Colima se identificaron:
+
+- Consecutivo: 0.
+- Global: 258.
+- Estado: 0.
+- Municipio: 86.
+- Trimestre: 0.
+- Año: 0.
+- Índice: 0.
+
+Los valores vacíos de Municipio corresponden a registros sin desagregación municipal. Los valores vacíos de Global deben analizarse de acuerdo con la estructura de clasificación de la fuente.
+
+### Conclusión de la validación
+
+La fuente SHF presenta 258 registros para Colima, sin duplicados detectados y con cobertura completa de 86 periodos trimestrales para Manzanillo y Villa de Álvarez.
+
+La columna Índice no presenta valores faltantes en los registros de Colima, por lo que la información constituye una base útil para futuros análisis de evolución de precios de vivienda.
