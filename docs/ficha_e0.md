@@ -121,21 +121,27 @@ Los resultados están documentados en:
 
 **Estado:** Validaciones iniciales realizadas y documentadas.
 
-## 8. Entrevista y validación del cliente
+## 8. ### Entrevista a cliente potencial
 
-Se identificó a una persona que actualmente busca vivienda en renta y se le envió una invitación para realizar una entrevista académica.
+**Estado:** Realizada.
 
-La entrevista tendrá como objetivo conocer:
+- Perfil: persona que busca vivienda en renta.
+- Ubicación: Tecomán, Colima.
+- Fecha: 9 de noviembre de 2026.
+- Hora: 12:07 p. m.
+- Duración aproximada: 15 minutos.
+- Modalidad: mensajería escrita.
+- Preguntas respondidas: 8.
+- Autorización para uso académico: confirmada.
+- Evidencia: `docs/entrevista_cliente.md`.
 
-- Dificultades durante la búsqueda de vivienda.
-- Fuentes de información utilizadas.
-- Problemas con anuncios y disponibilidad.
-- Criterios para comparar precios.
-- Información que considera necesaria.
+**Principales hallazgos:**
+- Dificultad para encontrar viviendas que cumplan con el presupuesto y características deseadas.
+- Publicaciones de inmuebles que no están realmente disponibles.
+- Necesidad de información confiable, fotografías y teléfonos de contacto.
+- Importancia de mantener la disponibilidad actualizada y ofrecer una plataforma segura.
 
-También se contempla contactar a un asesor inmobiliario para validar necesidades del sector comercial.
-
-**Estado:** Entrevista pendiente de realización. No se registran resultados hasta contar con evidencia real.
+**Limitación:** Se cuenta con una entrevista exploratoria. Es necesario realizar más entrevistas para validar si estas necesidades se repiten en otros usuarios.
 
 ## 9. Ética y legalidad
 
