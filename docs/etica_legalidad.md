@@ -54,9 +54,24 @@ También se identificó una publicación institucional independiente titulada «
 4. Documentar las transformaciones realizadas.
 5. Verificar las condiciones aplicables antes de distribuir comercialmente conjuntos derivados.
 
-Conclusión: El índice SHF utilizado se publica en el portal oficial de la Sociedad Hipotecaria Federal como un recurso de datos abiertos. Su reutilización se documenta conforme al marco de datos abiertos de la Administración Pública Federal y los Términos de Libre Uso MX.
+**Conclusión:** El índice SHF utilizado se publica en el portal oficial de la Sociedad Hipotecaria Federal como un recurso de datos abiertos. Su reutilización se documenta conforme al marco de datos abiertos de la Administración Pública Federal y los Términos de Libre Uso MX.
 
 El proyecto conservará la atribución a SHF, la liga de consulta y la fecha de descarga; mantendrá los datos originales sin alteraciones en la zona Bronce y documentará cualquier transformación. Asimismo, aclarará que los análisis y resultados del observatorio son propios y no representan una postura oficial de SHF.
+
+### Fundamento normativo complementario
+
+Se consultaron los Lineamientos en materia de Datos Abiertos de la Administración Pública Federal, publicados en el Diario Oficial de la Federación. Su artículo 1 incluye dentro de su ámbito de aplicación a las instituciones nacionales de crédito.
+
+La Sociedad Hipotecaria Federal es una Sociedad Nacional de Crédito e institución de banca de desarrollo, por lo que se encuentra comprendida dentro de dicho marco institucional.
+
+El artículo 5, fracción X, establece que los datos abiertos son de libre uso y que debe citarse la fuente de origen como único requisito para utilizarlos libremente. El artículo 6 contempla su libre acceso, uso, reutilización y redistribución.
+
+Por lo anterior, el proyecto utilizará el archivo SHF bajo los criterios de atribución, conservación de procedencia y transparencia sobre las transformaciones realizadas. También evitará presentar los resultados derivados como si fueran publicaciones o posturas oficiales de SHF.
+
+**Referencias normativas:**
+
+- https://sidof.segob.gob.mx/notas/docFuente/5767742
+- https://www.gob.mx/shf/acciones-y-programas/descripcion-de-la-institucion
 
 **Fuentes consultadas:**
 
