@@ -1,3 +1,4 @@
+
 import json
 import unicodedata
 from pathlib import Path
@@ -24,6 +25,7 @@ def buscar_registros(objeto):
         if isinstance(elemento, list):
             if elemento and all(isinstance(x, dict) for x in elemento):
                 candidatos.append(elemento)
+
             for item in elemento:
                 recorrer(item)
 
@@ -48,12 +50,12 @@ def buscar_columna(columnas, posibles_nombres):
 
 def main():
     archivos = sorted(
-    (
-        archivo
-        for archivo in CARPETA.glob("*.json")
-        if not archivo.name.endswith(".metadata.json")
-    ),
-    key=lambda archivo: archivo.name,
+        (
+            archivo
+            for archivo in CARPETA.glob("*.json")
+            if not archivo.name.endswith(".metadata.json")
+        ),
+        key=lambda archivo: archivo.name,
         reverse=True
     )
 
@@ -63,6 +65,7 @@ def main():
         )
 
     archivo = archivos[0]
+
     print("=" * 60)
     print("VALIDACIÓN DE CALIDAD - SNIIV REGISTRO")
     print("=" * 60)
@@ -88,15 +91,18 @@ def main():
 
     # Valores faltantes
     nulos = Counter()
+
     for registro in registros:
         for columna in columnas:
             valor = registro.get(columna)
+
             if valor is None or (
                 isinstance(valor, str) and not valor.strip()
             ):
                 nulos[columna] += 1
 
     total_nulos = sum(nulos.values())
+
     print(f"\nValores faltantes: {total_nulos}")
 
     for columna in columnas:
@@ -111,73 +117,86 @@ def main():
         )
         for registro in registros
     ]
+
     duplicados = len(registros_serializados) - len(
         set(registros_serializados)
     )
+
     print(f"\nRegistros duplicados: {duplicados}")
 
     # Identificación de columnas geográficas y temporales
     columna_municipio = buscar_columna(
         columnas, {"municipio", "nombremunicipio"}
     )
+
     columna_anio = buscar_columna(
         columnas, {"anio", "ano", "year"}
     )
+
     columna_mes = buscar_columna(
         columnas, {"mes", "month"}
     )
 
+    # Municipios
     if columna_municipio:
         municipios = Counter(
             str(r[columna_municipio]).strip()
             for r in registros
             if r.get(columna_municipio) not in (None, "")
         )
+
         print("\nMUNICIPIOS ENCONTRADOS:")
+
         for municipio, cantidad in sorted(municipios.items()):
             print(f"  {municipio}: {cantidad}")
+
         print(f"Total de municipios: {len(municipios)}")
     else:
         print("\nNo se identificó la columna de municipio.")
 
+    # Años disponibles
     if columna_anio:
         anios = sorted({
-            str(r[columna_anio])
+            str(r[columna_anio]).strip()
             for r in registros
             if r.get(columna_anio) not in (None, "")
         })
+
         print(f"\nAños disponibles: {', '.join(anios)}")
 
-    
-if columna_mes:
-    meses = sorted({
-        str(r[columna_mes])
-        for r in registros
-        if r.get(columna_mes) not in (None, "")
-    })
-    print(f"\nMeses disponibles: {', '.join(meses)}")
-
-    if columna_anio:
-        periodos = {
-            (
-                str(r[columna_anio]).strip(),
-                str(r[columna_mes]).strip()
-            )
+    # Meses y periodos históricos
+    if columna_mes:
+        meses = sorted({
+            str(r[columna_mes]).strip()
             for r in registros
-            if r.get(columna_anio) not in (None, "")
-            and r.get(columna_mes) not in (None, "")
-        }
+            if r.get(columna_mes) not in (None, "")
+        })
 
-        print(f"Periodos año-mes únicos: {len(periodos)}")
+        print(f"\nMeses disponibles: {', '.join(meses)}")
 
-        print("\nPERIODOS POR AÑO:")
-        conteo_por_anio = Counter(
-            anio for anio, mes in periodos
-        )
+        if columna_anio:
+            periodos = {
+                (
+                    str(r[columna_anio]).strip(),
+                    str(r[columna_mes]).strip()
+                )
+                for r in registros
+                if r.get(columna_anio) not in (None, "")
+                and r.get(columna_mes) not in (None, "")
+            }
 
-        for anio in sorted(conteo_por_anio):
-            print(f"  {anio}: {conteo_por_anio[anio]} meses")
+            print(f"\nPeriodos año-mes únicos: {len(periodos)}")
 
+            print("\nPERIODOS POR AÑO:")
+
+            conteo_por_anio = Counter(
+                anio for anio, mes in periodos
+            )
+
+            for anio in sorted(conteo_por_anio):
+                print(f"  {anio}: {conteo_por_anio[anio]} meses")
+    else:
+        print("\nNo se identificó la columna de mes.")
 
     print("\nVALIDACIÓN TERMINADA.")
     print("=" * 60)
