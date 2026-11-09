@@ -3,3 +3,4 @@ pandas>=2.2,<3
 pyarrow>=18,<25
 python-dateutil>=2.9
 pytest>=8,<9
+openpyxl>=3.1
