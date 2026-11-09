@@ -2,8 +2,8 @@
 
 **Equipo:** trabajo individual  
 **Entrega:** E0 — Planteamiento, fuentes y captura inicial  
-**Etiqueta:** `e0` (crear únicamente al cerrar la versión revisada)  
-**Tablero:** no disponible en E0 / pendiente.
+**Etiqueta:** `e0` (pendiente de crear tras la revisión final)  
+**Tablero:** no disponible en E0.
 
 ## Resumen
 
@@ -19,14 +19,15 @@ La validación comercial con participantes del sector inmobiliario continúa pen
 
 | Criterio | Evidencia | Estado |
 |---|---|---|
-| Dos fuentes de información | SNIIV Registro y SHF incorporadas en `data/bronce/` | Cumplido |
-| Fuente complementaria | SNIIV Inventario identificada, pero sin incorporación confirmada | Pendiente |
+| Dos fuentes de información | SNIIV Registro y SHF en `data/bronce/` | Cumplido |
+| Fuente complementaria | SNIIV Inventario identificada, sin incorporación confirmada | Pendiente |
 | Plan y ética | `docs/E0/propuesta.md` y `docs/etica_legalidad.md` | Documentado |
 | Revisión de robots.txt | Resultados documentados para los dominios consultados | Documentado con limitaciones |
 | Captura automática | `.github/workflows/captura.yml` y ejecución exitosa de GitHub Actions | Cumplido para SNIIV Registro |
 | Captura automática SHF | Archivo incorporado manualmente | Pendiente |
 | Serie histórica de al menos 36 periodos | SNIIV: 200 periodos año-mes; SHF: 86 periodos trimestrales por municipio | Cumplido |
 | Validación de calidad | `docs/E0/validacion_sniiv.md` y `docs/E0/validacion_shf.md` | Cumplido |
+| Metadatos de procedencia | Nueve archivos de metadatos SNIIV con contenido y metadatos SHF incorporados | Parcialmente verificado |
 
 ## Análisis Estadístico
 
@@ -35,30 +36,30 @@ La validación comercial con participantes del sector inmobiliario continúa pen
 | Variable para pronóstico | Pregunta E1 sobre índices SHF de Manzanillo y Villa de Álvarez | Definida; análisis pendiente |
 | Pregunta de experimento | Pregunta E2 sobre interpretación de gráficas y tablas | Definida; experimento pendiente |
 | Pregunta multivariada | Pregunta E3 sobre registros, precios, periodos y segmentos | Definida; viabilidad técnica pendiente |
-| Comparabilidad de variables | Requiere armonizar frecuencias y categorías entre fuentes | Pendiente para E3 |
+| Comparabilidad de variables | Armonización de frecuencias y categorías entre fuentes | Pendiente para E3 |
 
 ## Calidad en los Sistemas de Información
 
 | Criterio | Evidencia | Estado |
 |---|---|---|
-| Registro PSP de tiempo | `docs/psp.md` | Documentado |
-| Registro PSP de defectos | `docs/psp.md` | Documentado |
+| Registro PSP de tiempo | `docs/psp.md` y `calidad/tiempo-individual.csv` | Documentado; estimaciones retrospectivas |
+| Registro PSP de defectos | `docs/psp.md` y `calidad/defectos-individual.csv` | Documentado |
 | Tres objetivos medibles | `docs/E0/objetivos-calidad.md` | Definidos; medición pendiente |
-| Bitácora de captura | Metadatos de capturas en `data/bronce/` | Existe evidencia inicial |
-| Medición de éxito de captura durante 14 días | Objetivo de calidad 1 | Pendiente |
-| Medición de completitud en Plata | Objetivo de calidad 2 | Pendiente de implementar Plata |
-| Comprobación de trazabilidad del 100% | Objetivo de calidad 3 | Pendiente de auditoría completa |
+| Bitácora de captura | Metadatos en `data/bronce/` | Evidencia disponible |
+| Éxito de captura durante 14 días | Objetivo de calidad 1 | Pendiente de medición |
+| Completitud en Plata | Objetivo de calidad 2 | Pendiente de implementar Plata |
+| Trazabilidad del 100 % | Objetivo de calidad 3 | Auditoría completa pendiente |
+
+Los tiempos del PSP son estimaciones retrospectivas y no mediciones cronometradas. Los defectos registrados corresponden a problemas identificados y corregidos durante el desarrollo.
 
 ## Entrevista y validación del cliente
 
-**Estado de la entrevista: cumplido.**
+**Estado del requisito de entrevista: cumplido.**
 
 Se realizó una entrevista escrita de aproximadamente 15 minutos, con ocho preguntas respondidas por una persona que busca vivienda en Tecomán, Colima. El docente confirmó que acepta esta modalidad para satisfacer el requisito de entrevista de E0.
 
-La entrevista tiene carácter exploratorio. La validación comercial con agentes, asesores o agencias inmobiliarias continúa pendiente.
-
 - Perfil: persona que busca vivienda en renta.
-- Ubicación de búsqueda: Tecomán, Colima.
+- Ubicación: Tecomán, Colima.
 - Fecha: 9 de noviembre de 2026.
 - Hora: 12:07 p. m.
 - Duración aproximada: 15 minutos.
@@ -68,25 +69,15 @@ La entrevista tiene carácter exploratorio. La validación comercial con agentes
 
 La entrevista identificó dificultades relacionadas con publicaciones desactualizadas, disponibilidad real de inmuebles, precios y características de las viviendas.
 
-**Limitaciones:** la entrevista corresponde a un usuario potencial y no valida la disposición de pago de clientes comerciales. También queda sujeta a la aceptación de la modalidad escrita por parte del docente.
+La entrevista tiene carácter exploratorio y no representa una validación comercial con agentes, asesores o agencias inmobiliarias. La disposición de pago de clientes comerciales continúa pendiente.
 
 **Evidencia:** `docs/entrevista_cliente.md`.
 
 ## Relatoría
 
-La relatoría de actividades debe consolidar las actividades efectivamente realizadas, sus fechas, dificultades, decisiones y evidencias.
+**Estado: documentada.**
 
-Los avances técnicos y documentales se encuentran distribuidos en:
-
-- `docs/psp.md`
-- `docs/entrevista_cliente.md`
-- `docs/etica_legalidad.md`
-- `docs/ficha_e0.md`
-- `docs/planteamiento_e0.md`
-- `docs/E0/validacion_sniiv.md`
-- `docs/E0/validacion_shf.md`
-
-**Estado:** pendiente de consolidación en una relatoría específica.
+Se creó `docs/relatoria.md`, que consolida las actividades realizadas, los resultados técnicos, los problemas encontrados, las correcciones y las limitaciones del proyecto.
 
 ## Documentación de soporte
 
@@ -99,14 +90,18 @@ Los avances técnicos y documentales se encuentran distribuidos en:
 - `docs/entrevista_cliente.md`
 - `docs/etica_legalidad.md`
 - `docs/psp.md`
+- `docs/relatoria.md`
+- `calidad/tiempo-individual.csv`
+- `calidad/defectos-individual.csv`
 
 ## Pendientes para el cierre de E0
 
 1. Intentar validar la necesidad comercial y la disposición de pago con un participante del sector inmobiliario.
-2. Comprobar la evidencia de los registros PSP y sus archivos de respaldo.
-3. Revisar la trazabilidad de los archivos originales y sus metadatos.
-4. Consolidar la relatoría de actividades.
-5. Comprobar la consistencia de todos los documentos y archivos del repositorio.
-6. Crear la etiqueta `e0` únicamente después de la revisión final.
+2. Auditar los nueve archivos de metadatos SNIIV y comprobar todos los campos requeridos.
+3. Revisar la trazabilidad completa de los archivos originales, incluidos los metadatos SHF.
+4. Comprobar la consistencia de todos los documentos y archivos del repositorio.
+5. Crear la etiqueta `e0` después de la revisión final.
 
-**Estado general:** E0 cuenta con avances sustanciales en planteamiento, fuentes, captura, validación y documentación. El cierre formal queda sujeto a la revisión de los pendientes y a los criterios de aceptación de la entrega.
+## Estado general
+
+E0 cuenta con avances sustanciales en planteamiento, fuentes, captura, validación, entrevista y documentación. El requisito formal de entrevista fue aceptado por el
