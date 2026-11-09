@@ -130,3 +130,31 @@ El archivo de SHF fue incorporado manualmente al repositorio. La descarga automa
 **Estado:** Realizada.
 
 - **Perfil:** persona que busca vivienda en renta.
+
+## 10. Ética y legalidad
+
+### SNIIV – SEDATU
+
+- Se identificó el Registro de Vivienda como fuente oficial del Sistema Nacional de Información e Indicadores de Vivienda.
+- Se consultó el archivo `robots.txt` del dominio SNIIV, pero no se encontró una página accesible.
+- Esta situación no se interpreta como autorización ni prohibición general de extracción.
+- Se conserva la procedencia de los datos y se identifica a SEDATU como institución de origen.
+
+### SHF – Sociedad Hipotecaria Federal
+
+- Se identificó la publicación oficial del Índice SHF de Precios de la Vivienda y el archivo de datos abiertos correspondiente al segundo trimestre de 2026.
+- Se documentó el fundamento normativo de los datos abiertos de la Administración Pública Federal.
+- Se identificó la aplicación institucional de los Lineamientos en materia de Datos Abiertos a SHF.
+- Se conservará la atribución a SHF y la procedencia del archivo original.
+- Las transformaciones realizadas se documentarán y los resultados derivados no se presentarán como publicaciones oficiales de SHF.
+
+### Criterios éticos y de manejo de información
+
+1. Conservar los archivos originales en la zona Bronce.
+2. Identificar las instituciones y fuentes de procedencia.
+3. Documentar las transformaciones y validaciones.
+4. No alterar los datos originales.
+5. Respetar la privacidad y autorización de las personas entrevistadas.
+6. No divulgar información personal de los participantes sin autorización.
+
+**Estado:** Revisión documental realizada para las fuentes consultadas. Se mantienen los criterios de atribución, integridad y transparencia durante el desarrollo del proyecto.
