@@ -14,8 +14,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
-      - name: Inspeccionar archivo SHF
-        run: python -m extractores.inspeccionar_shf
+      - name: Validar calidad SHF
+        run: python -m extractores.validar_shf
       - name: Registro SNIIV
         run: python -m extractores.registro_sniiv
       - name: Inventario SNIIV (si se configuró URL)
