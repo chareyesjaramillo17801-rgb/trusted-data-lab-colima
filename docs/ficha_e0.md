@@ -130,6 +130,36 @@ El archivo de SHF fue incorporado manualmente al repositorio. La descarga automa
 **Estado:** Realizada.
 
 - **Perfil:** persona que busca vivienda en renta.
+- **Ubicación de búsqueda:** Tecomán, Colima.
+- **Fecha:** 9 de noviembre de 2026.
+- **Hora:** 12:07 p. m.
+- **Duración aproximada:** 15 minutos.
+- **Modalidad:** mensajería escrita.
+- **Preguntas respondidas:** 8.
+- **Autorización:** la persona entrevistada autorizó el uso de sus respuestas con fines académicos.
+
+### Principales hallazgos
+
+1. La persona lleva aproximadamente tres meses buscando vivienda en renta.
+2. Busca una vivienda céntrica, con dos recámaras, cochera y patio, con un presupuesto de $3,000.
+3. Utiliza Facebook como principal medio de búsqueda.
+4. Tiene dificultades para encontrar opciones que coincidan con el precio y las características que necesita.
+5. Ha encontrado publicaciones de viviendas que ya están ocupadas o que realmente no están disponibles para rentarse.
+6. Compara precios entre diferentes opciones.
+7. Considera indispensables las fotografías y un número telefónico de contacto.
+8. Utilizaría una herramienta especializada si fuera segura y mantuviera su información actualizada constantemente.
+
+### Interpretación
+
+La entrevista permitió identificar problemas relacionados con la actualización, confiabilidad y precisión de las publicaciones inmobiliarias. Estos hallazgos respaldan la exploración de una herramienta que permita consultar información de vivienda en renta con datos vigentes.
+
+### Limitaciones
+
+- Se realizó una sola entrevista, por lo que sus resultados son exploratorios y no representan a toda la población que busca vivienda.
+- La entrevista fue escrita y no presencial ni mediante grabación de audio.
+- No permite validar la disposición de pago de agencias o asesores inmobiliarios.
+
+**Documentación:** `docs/entrevista_cliente.md`.
 
 ## 10. Ética y legalidad
 
