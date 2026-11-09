@@ -33,3 +33,5 @@ jobs:
           git add data/bronce
           git diff --cached --quiet || git commit -m "chore(data): captura automatizada"
           git push
+      - name: Validar Registro SNIIV
+        run: python -m extractores.validar_registro
