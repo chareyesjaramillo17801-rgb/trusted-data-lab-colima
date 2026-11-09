@@ -1,41 +1,52 @@
-# TRUSTED DATA LAB – Ficha de entrega E0
-
-**Fecha de corte:** 9 de noviembre de 2026  
-**Proyecto:** Observatorio inmobiliario de Colima  
-**Repositorio:** trusted-data-lab-colima
+# Ficha de entrega E0 – TRUSTED DATA LAB
 
 ## 1. Identificación del proyecto
 
-**Nombre:** TRUSTED DATA LAB.
-
-**Descripción:** Observatorio inmobiliario orientado a recopilar, organizar, validar y analizar información del mercado de vivienda en Colima.
-
-El proyecto contempla dos líneas:
-
-- Mercado inmobiliario general: registros de vivienda, índices de precios y tendencias.
-- Vivienda en renta para estudiantes: necesidades de búsqueda, información de precios, ubicación y disponibilidad.
+- **Proyecto:** TRUSTED DATA LAB
+- **Entrega:** E0 – Planteamiento, fuentes y captura inicial
+- **Área:** Análisis de datos y observatorio inmobiliario.
+- **Ámbito geográfico:** Estado de Colima, México.
+- **Fecha de actualización:** 9 de noviembre de 2026.
 
 ## 2. Pregunta central
 
 ¿Cómo ha evolucionado el mercado de vivienda en el estado de Colima, considerando los registros de vivienda y los índices de precios disponibles, y cómo puede transformarse esta información en conocimiento útil para el sector inmobiliario y para comprender las necesidades de vivienda en renta de la población estudiantil?
 
-**Estado:** Documentada.
+## 3. Objetivo general
 
-## 3. Cliente potencial
+Desarrollar un observatorio inmobiliario para recopilar, organizar, validar y analizar información sobre el comportamiento del mercado de vivienda en Colima, utilizando fuentes oficiales de datos y explorando las necesidades de información de las personas que buscan vivienda en renta.
 
-Se consideran como clientes potenciales:
+## 4. Enfoque del proyecto
+
+El proyecto contempla dos enfoques complementarios:
+
+1. **Mercado inmobiliario general:** análisis de registros de vivienda e índices de precios para identificar tendencias y comportamientos del mercado.
+2. **Vivienda en renta para estudiantes:** exploración de las dificultades y necesidades de las personas que buscan vivienda, con énfasis en información confiable, características, precios y disponibilidad.
+
+La información de las fuentes oficiales actuales no permite conocer directamente la disponibilidad de inmuebles en renta. Por ello, esta línea requiere información complementaria.
+
+## 5. Clientes potenciales y usuarios
+
+### Clientes potenciales
 
 - Asesores y agentes inmobiliarios.
 - Agencias inmobiliarias.
-- Desarrolladores de vivienda.
-- Inversionistas inmobiliarios.
+- Desarrolladores inmobiliarios.
+- Inversionistas.
 - Administradores y propietarios de inmuebles.
 
-La hipótesis comercial es que estos perfiles podrían utilizar información histórica, comparaciones territoriales y análisis de tendencias para respaldar decisiones comerciales.
+**Necesidad identificada:** contar con información organizada y analizada que facilite la comprensión del comportamiento del mercado inmobiliario y apoye la toma de decisiones.
 
-**Estado:** Perfiles identificados; necesidad y disposición de pago pendientes de validar mediante entrevista.
+**Estado de validación comercial:** pendiente. Todavía es necesario entrevistar a posibles clientes del sector inmobiliario y comprobar su interés y disposición de pago.
 
-## 4. Preguntas analíticas
+### Usuarios potenciales
+
+- Personas que buscan vivienda en renta.
+- Estudiantes universitarios.
+- Personas interesadas en comprar una vivienda.
+- Investigadores y estudiantes que requieren información inmobiliaria.
+
+## 6. Preguntas analíticas para las siguientes entregas
 
 ### E1 – Pronóstico
 
@@ -45,168 +56,77 @@ La hipótesis comercial es que estos perfiles podrían utilizar información his
 
 ¿La presentación de información inmobiliaria mediante gráficas comparativas, en lugar de tablas numéricas, mejora la rapidez y precisión con la que los usuarios interpretan las tendencias del mercado?
 
+- Variable independiente: formato de presentación (gráficas o tablas).
+- Variables dependientes: tiempo de interpretación y precisión de las respuestas.
+
 ### E3 – Análisis multivariado
 
 ¿Qué relación existe entre los registros de vivienda, los índices de precios, los periodos y los segmentos de vivienda en los municipios de Colima que cuentan con información comparable en ambas fuentes?
 
-**Estado:** Tres preguntas documentadas.
+## 7. Fuentes de información
 
-## 5. Fuentes de información
+### Fuente 1. SNIIV – Registro de Vivienda
 
-### Fuente 1: SNIIV – Registro de Vivienda
+- **Institución:** Secretaría de Desarrollo Agrario, Territorial y Urbano (SEDATU).
+- **Fuente:** Sistema Nacional de Información e Indicadores de Vivienda (SNIIV).
+- **Recurso:** Registro de Vivienda.
+- **Consulta:** API de SNIIV.
+- **Ubicación en el repositorio:** `data/bronce/sniiv_registro/`.
+- **Captura:** automatizada mediante extractor de Python y GitHub Actions.
 
-- Institución: SEDATU.
-- Formato capturado: JSON.
-- Registros analizados: 2,140.
-- Columnas: 8.
-- Municipios identificados: 8.
-- Periodos mensuales distintos: 200.
-- Valores faltantes: 0.
-- Registros duplicados: 0.
-- Documentación: `docs/validacion_sniiv.md`.
-- Capturas: `data/bronce/sniiv_registro/`.
+**Resultados de validación:**
 
-### Fuente 2: SHF – Índice de Precios de la Vivienda
+- 2,140 registros.
+- 8 columnas.
+- 8 municipios de Colima.
+- 17 años disponibles (2010–2026).
+- 200 periodos año-mes únicos.
+- 0 valores faltantes.
+- 0 registros duplicados.
+- Cobertura de 12 meses por año entre 2010 y 2025.
+- 8 meses disponibles para 2026.
 
-- Institución: Sociedad Hipotecaria Federal.
-- Formato original: XLSX.
-- Registros analizados: 10,406.
-- Columnas: 7.
-- Registros correspondientes a Colima: 258.
-- Municipios identificados: Manzanillo y Villa de Álvarez.
-- Periodos por municipio: 86.
-- Filas completamente duplicadas: 0.
-- Claves dimensionales duplicadas: 0.
-- Valores faltantes en la columna Índice para Colima: 0.
-- Documentación: `docs/validacion_shf.md`.
-- Archivo original: `data/bronce/shf/Indice_SHF_datos_abiertos_2_trim_2026.xlsx`.
+**Documentación:** `docs/validacion_sniiv.md`.
 
-**Estado:** Dos fuentes incorporadas y documentadas.
+### Fuente 2. SHF – Índice de Precios de la Vivienda
 
-## 6. Captura automatizada
+- **Institución:** Sociedad Hipotecaria Federal (SHF).
+- **Recurso:** Índice SHF de Precios de la Vivienda.
+- **Archivo:** `Indice_SHF_datos_abiertos_2_trim_2026.xlsx`.
+- **Ubicación en el repositorio:** `data/bronce/shf/`.
+- **Captura:** incorporación manual del archivo oficial.
 
-Se configuró GitHub Actions mediante el workflow:
+**Resultados de validación:**
 
-`.github/workflows/captura.yml`
+- 10,406 registros.
+- 7 columnas.
+- 258 registros correspondientes a Colima.
+- 86 periodos trimestrales disponibles para Manzanillo.
+- 86 periodos trimestrales disponibles para Villa de Álvarez.
+- Cobertura desde 2005 hasta el segundo trimestre de 2026.
+- 0 filas completamente duplicadas.
+- 0 duplicados según la clave dimensional utilizada en la validación.
+- Índice sin valores faltantes en los registros de Colima.
 
-El workflow contempla:
+Los valores vacíos de las columnas Global y Municipio corresponden a registros de otros niveles o categorías y no se consideran automáticamente errores.
 
-- Ejecución manual.
-- Ejecución programada diaria.
-- Configuración del entorno Python.
-- Instalación de dependencias.
-- Ejecución del extractor SNIIV.
-- Ejecución condicional de extractores adicionales.
-- Almacenamiento de capturas en Bronce y envío de cambios al repositorio.
+**Documentación:** `docs/validacion_shf.md`.
 
-El archivo SHF se incorporó manualmente al repositorio. Su inspección y validación se ejecutaron mediante GitHub Actions; esto no significa que su descarga ya esté automatizada.
+## 8. Captura y almacenamiento de datos
 
-**Estado:** Automatización de captura SNIIV configurada; descarga automática SHF pendiente.
+Se implementó una estructura de almacenamiento por zonas:
 
-## 7. Calidad de datos
+- **Bronce:** conservación de los datos originales.
+- **Plata:** destinada al procesamiento y transformación.
+- **Oro:** destinada a los datos preparados para análisis.
+- **Cuarentena:** destinada a registros que requieran revisión.
 
-Se realizaron validaciones para las dos fuentes:
+La captura automatizada de SNIIV se encuentra configurada mediante GitHub Actions.
 
-- Estructura y columnas.
-- Registros totales.
-- Valores faltantes.
-- Duplicados.
-- Cobertura temporal.
-- Cobertura geográfica.
+El archivo de SHF fue incorporado manualmente al repositorio. La descarga automatizada de esta fuente todavía está pendiente.
 
-Los resultados están documentados en:
-
-- `docs/validacion_sniiv.md`
-- `docs/validacion_shf.md`
-
-**Estado:** Validaciones iniciales realizadas y documentadas.
-
-## 8. ### Entrevista a cliente potencial
+## 9. Entrevista a cliente potencial / usuario
 
 **Estado:** Realizada.
 
-- Perfil: persona que busca vivienda en renta.
-- Ubicación: Tecomán, Colima.
-- Fecha: 9 de noviembre de 2026.
-- Hora: 12:07 p. m.
-- Duración aproximada: 15 minutos.
-- Modalidad: mensajería escrita.
-- Preguntas respondidas: 8.
-- Autorización para uso académico: confirmada.
-- Evidencia: `docs/entrevista_cliente.md`.
-
-**Principales hallazgos:**
-- Dificultad para encontrar viviendas que cumplan con el presupuesto y características deseadas.
-- Publicaciones de inmuebles que no están realmente disponibles.
-- Necesidad de información confiable, fotografías y teléfonos de contacto.
-- Importancia de mantener la disponibilidad actualizada y ofrecer una plataforma segura.
-
-**Limitación:** Se cuenta con una entrevista exploratoria. Es necesario realizar más entrevistas para validar si estas necesidades se repiten en otros usuarios.
-
-## 9. Ética y legalidad
-
-Pendiente documentar la revisión de:
-
-- Términos y condiciones de uso de las fuentes.
-- Políticas de acceso y reutilización.
-- Archivos robots.txt cuando correspondan.
-- Condiciones de atribución y uso de los datos.
-
-**Estado:** Pendiente de revisión y documentación.
-
-## 10. PSP – Registro de tiempos y defectos
-
-Se llevará un registro de actividades, duración real y defectos encontrados durante el desarrollo.
-
-| Actividad | Tiempo invertido | Defectos o incidencias |
-|---|---|---|
-| Configuración del repositorio | Pendiente de registrar | Pendiente |
-| Captura SNIIV | Pendiente de registrar | Pendiente |
-| Validación SNIIV | Pendiente de registrar | Pendiente |
-| Incorporación de SHF | Pendiente de registrar | Pendiente |
-| Inspección y validación SHF | Pendiente de registrar | Pendiente |
-| Documentación E0 | Pendiente de registrar | Pendiente |
-
-No se asignan tiempos estimados como si fueran mediciones reales. Los datos se completarán con base en el trabajo efectivamente realizado.
-
-**Estado:** Registro PSP por completar.
-
-## 11. Organización del repositorio
-
-Archivos de documentación previstos:
-
-- `docs/planteamiento_e0.md`
-- `docs/validacion_sniiv.md`
-- `docs/validacion_shf.md`
-- `docs/ficha_e0.md`
-
-Código y datos:
-
-- `extractores/`
-- `data/bronce/`
-- `.github/workflows/captura.yml`
-
-## 12. Estado general de E0
-
-| Requisito | Estado |
-|---|---|
-| Pregunta central | Documentada |
-| Cliente potencial | Identificado, pendiente de validación |
-| Tres preguntas analíticas | Documentadas |
-| Dos fuentes de información | Incorporadas |
-| Serie histórica mínima de 36 periodos | Cumplida |
-| Validación inicial de calidad | Realizada |
-| Captura automatizada | SNIIV configurada |
-| Entrevista real de 15 minutos | Pendiente |
-| Ética y legalidad | Pendiente |
-| PSP | Pendiente de completar |
-| Ficha E0 | En documentación |
-| Etiqueta `e0` en GitHub | Pendiente |
-
-## 13. Conclusión
-
-TRUSTED DATA LAB cuenta con una estructura inicial de observatorio, dos fuentes de información inmobiliaria y procesos de captura y validación implementados.
-
-Los datos disponibles permiten estudiar registros de vivienda y evolución de índices de precios en Colima. La línea de vivienda en renta para estudiantes se plantea como una aplicación complementaria que requiere información adicional y validación con usuarios reales.
-
-La entrega E0 se considerará completa únicamente después de reunir las evidencias pendientes y verificar los requisitos de la rúbrica.
+- **Perfil:** persona que busca vivienda en renta.
