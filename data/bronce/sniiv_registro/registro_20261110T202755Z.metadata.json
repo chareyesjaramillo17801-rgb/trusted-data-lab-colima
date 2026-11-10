@@ -1,0 +1,9 @@
+{
+  "source": "SNIIV Registro de Vivienda",
+  "url": "https://sniiv.sedatu.gob.mx/api/CuboAPI/GetRegistro/2010,2026/06/000/anio,mes,estado,municipio,segmento",
+  "captured_at_utc": "20261110T202755Z",
+  "http_status": 200,
+  "content_type": "application/json; charset=utf-8",
+  "records": 2140,
+  "note": "Respuesta cruda; validar estructura y cobertura antes de analizar."
+}
