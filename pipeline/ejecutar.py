@@ -1,11 +1,13 @@
 """Ejecutar con python -m pipeline.ejecutar desde la raíz del repositorio."""
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
+
 from pipeline.limpieza import normalizar_columnas_texto
-from pipeline.validacion import MESES, validar_sniiv, validar_shf
+from pipeline.validacion import MESES, validar_shf, validar_sniiv
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -21,7 +23,7 @@ def principal():
  if not shfs: raise FileNotFoundError('Sin Excel SHF')
  origen_sniiv=archivos[-1]; origen_shf=shfs[-1]
  raw=json.loads(origen_sniiv.read_text(encoding='utf-8'))
- if not isinstance(raw,list): raise ValueError('SNIIV no es lista')
+ if not isinstance(raw,list): raise TypeError('SNIIV no es lista')
  sniiv=normalizar_columnas_texto(pd.DataFrame(raw),['mes','estado','municipio','segmento','clave_municipio','clave_estado'])
  sniiv['mes']=sniiv['mes'].astype('string').str.lower()
  sniiv['clave_estado']=sniiv['clave_estado'].astype('string').str.zfill(2)
@@ -35,7 +37,7 @@ def principal():
  if sv.empty or hv.empty: raise RuntimeError('Puerta de calidad: una fuente quedó sin datos válidos')
  sv['mes_numero']=sv['mes'].map(MESES).astype(int)
  sv['trimestre']=((sv['mes_numero']-1)//3+1).astype(int)
- sv['fecha']=pd.to_datetime(dict(year=sv['año'],month=sv['mes_numero'],day=1))
+ sv['fecha']=pd.to_datetime({'year': sv['año'], 'month': sv['mes_numero'], 'day': 1})
  hv['nivel_geografico']=np.where(hv['Municipio'].isna(),'estatal','municipal')
  hv['fecha']=pd.PeriodIndex.from_fields(year=hv['Año'],quarter=hv['Trimestre'],freq='Q').to_timestamp()
  guardar(sv,ROOT/'data/plata/sniiv.parquet')
@@ -49,7 +51,7 @@ def principal():
  guardar(s_ag,ROOT/'data/oro/registros_trimestrales.parquet')
  guardar(hv,ROOT/'data/oro/indice_shf_colima.parquet')
  guardar(comparacion,ROOT/'data/oro/comparacion_municipal.parquet')
- reporte={'ejecutado_utc':datetime.now(timezone.utc).isoformat(),'origen_sniiv':str(origen_sniiv.relative_to(ROOT)),'origen_shf':str(origen_shf.relative_to(ROOT)),'sniiv_entrada':len(sniiv),'sniiv_validos':len(sv),'sniiv_rechazados':len(sr),'shf_colima_entrada':len(shf),'shf_validos':len(hv),'shf_rechazados':len(hr),'oro_comparaciones':len(comparacion),'nota':'No se imputan nulos estructurales ni se mezclan granularidades.'}
+ reporte={'ejecutado_utc':datetime.now(UTC).isoformat(),'origen_sniiv':str(origen_sniiv.relative_to(ROOT)),'origen_shf':str(origen_shf.relative_to(ROOT)),'sniiv_entrada':len(sniiv),'sniiv_validos':len(sv),'sniiv_rechazados':len(sr),'shf_colima_entrada':len(shf),'shf_validos':len(hv),'shf_rechazados':len(hr),'oro_comparaciones':len(comparacion),'nota':'No se imputan nulos estructurales ni se mezclan granularidades.'}
  (ROOT/'data/oro/reporte_calidad.json').write_text(json.dumps(reporte,ensure_ascii=False,indent=2),encoding='utf-8')
  print(json.dumps(reporte,ensure_ascii=False,indent=2))
  return reporte

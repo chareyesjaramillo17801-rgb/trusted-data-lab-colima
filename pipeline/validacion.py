@@ -2,7 +2,7 @@
 import pandas as pd
 import pandera.pandas as pa
 
-MESES = {m: i for i, m in enumerate('enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre'.split(), 1)}
+MESES = {m: i for i, m in enumerate(['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'], 1)}
 MUNICIPIOS = {'Armería':'001','Colima':'002','Comala':'003','Coquimatlán':'004','Cuauhtémoc':'005','Ixtlahuacán':'006','Manzanillo':'007','Minatitlán':'008','Tecomán':'009','Villa de Álvarez':'010'}
 COLUMNAS_SNIIV = ['año','mes','estado','municipio','segmento','viviendas','clave_municipio','clave_estado']
 COLUMNAS_SHF = ['Consecutivo','Global','Estado','Municipio','Trimestre','Año','Indice']

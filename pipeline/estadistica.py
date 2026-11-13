@@ -1,11 +1,12 @@
 """Diagnóstico de atípicos y comparación de modelos trimestrales SHF."""
 import json
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from statsmodels.tsa.holtwinters import SimpleExpSmoothing, Holt, ExponentialSmoothing
 from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.stattools import adfuller, acf, pacf
+from statsmodels.tsa.holtwinters import ExponentialSmoothing, Holt, SimpleExpSmoothing
+from statsmodels.tsa.stattools import acf, adfuller, pacf
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,16 +26,16 @@ def analizar():
         train=serie.iloc[:-8]; test=serie.iloc[-8:]
         diagnosticos.append({'municipio':municipio,'observaciones':len(serie),'atipicos_iqr_nivel':n_atipicos,'adf_pvalor_nivel':float(adfuller(serie,autolag='AIC')[1]),'adf_pvalor_diferencia':float(adfuller(serie.diff().dropna(),autolag='AIC')[1]),'acf_lag1':float(acf(serie,nlags=1)[1]),'pacf_lag1':float(pacf(serie,nlags=1)[1])})
         modelos={
-            'SES':lambda: SimpleExpSmoothing(train,initialization_method='estimated').fit().forecast(len(test)),
-            'Holt':lambda: Holt(train,initialization_method='estimated').fit().forecast(len(test)),
-            'Holt-Winters':lambda: ExponentialSmoothing(train,trend='add',seasonal='add',seasonal_periods=4,initialization_method='estimated').fit().forecast(len(test)),
-            'ARIMA(1,1,1)':lambda: ARIMA(train,order=(1,1,1)).fit().forecast(len(test)),
+            'SES':lambda train=train, test=test: SimpleExpSmoothing(train,initialization_method='estimated').fit().forecast(len(test)),
+            'Holt':lambda train=train, test=test: Holt(train,initialization_method='estimated').fit().forecast(len(test)),
+            'Holt-Winters':lambda train=train, test=test: ExponentialSmoothing(train,trend='add',seasonal='add',seasonal_periods=4,initialization_method='estimated').fit().forecast(len(test)),
+            'ARIMA(1,1,1)':lambda train=train, test=test: ARIMA(train,order=(1,1,1)).fit().forecast(len(test)),
         }
         for nombre,fn in modelos.items():
             try:
                 pred=fn()
                 resultados.append({'municipio':municipio,'modelo':nombre,'periodos_entrenamiento':len(train),'periodos_prueba':len(test),**metricas(test,pred),'error':''})
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - registrar fallo de cada modelo sin abortar los demás
                 resultados.append({'municipio':municipio,'modelo':nombre,'error':str(e)})
     destino=ROOT/'data/oro'
     destino.mkdir(exist_ok=True,parents=True)

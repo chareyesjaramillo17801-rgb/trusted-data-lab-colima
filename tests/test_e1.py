@@ -1,6 +1,8 @@
 import pandas as pd
+
 from pipeline.limpieza import normalizar_texto
-from pipeline.validacion import validar_sniiv, validar_shf
+from pipeline.validacion import validar_shf, validar_sniiv
+
 
 def ejemplo():
  return pd.DataFrame([{'año':2025,'mes':'enero','estado':'Colima','municipio':'Colima','segmento':'Popular','viviendas':3,'clave_municipio':'002','clave_estado':'06'}])

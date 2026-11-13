@@ -1,6 +1,6 @@
-requests>=2.32,<3
+﻿requests>=2.32,<3
 pandas>=2.2,<3
 pyarrow>=18,<25
 python-dateutil>=2.9
-pytest>=8,<9
+pytest>=9.0.3,<10
 openpyxl>=3.1

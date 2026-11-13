@@ -2,13 +2,13 @@
 import json
 import warnings
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from scipy.stats import zscore
 from statsmodels.stats.diagnostic import acorr_ljungbox
-from statsmodels.tsa.seasonal import seasonal_decompose
-from statsmodels.tsa.holtwinters import Holt, ExponentialSmoothing
 from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.holtwinters import ExponentialSmoothing, Holt
+from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.stattools import adfuller
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,9 +25,9 @@ def run():
             raise ValueError(f'Serie insuficiente o inválida: {municipio}')
         train, test = y.iloc[:-8], y.iloc[-8:]
         candidatos = {
-            'Holt': lambda: Holt(train, initialization_method='estimated').fit(),
-            'Holt-Winters': lambda: ExponentialSmoothing(train, trend='add', seasonal='add', seasonal_periods=4, initialization_method='estimated').fit(),
-            'ARIMA(1,1,1)': lambda: ARIMA(train, order=(1,1,1)).fit(),
+            'Holt': lambda train=train: Holt(train, initialization_method='estimated').fit(),
+            'Holt-Winters': lambda train=train: ExponentialSmoothing(train, trend='add', seasonal='add', seasonal_periods=4, initialization_method='estimated').fit(),
+            'ARIMA(1,1,1)': lambda train=train: ARIMA(train, order=(1,1,1)).fit(),
         }
         evaluados = []
         for nombre, crear in candidatos.items():
