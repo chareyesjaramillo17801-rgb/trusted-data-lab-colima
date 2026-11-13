@@ -1,4 +1,4 @@
-# Matriz de requerimientos verificables E1
+﻿# Matriz de requerimientos verificables E1
 
 | ID | Requisito verificable | Evidencia o método de comprobación | Estado |
 |---|---|---|---|
@@ -10,7 +10,8 @@
 | R-06 | Diagnosticar estacionariedad y residuos | ADF, ACF/PACF, Ljung-Box | Ejecutado; Holt Villa de Álvarez con autocorrelación residual |
 | R-07 | Publicar pronóstico con intervalo validado | Tablero y prueba de cobertura del intervalo | **Pendiente: bandas actuales no calibradas** |
 | R-08 | Demostrar fiabilidad y disponibilidad | Historial de Actions y tiempos de incidentes | Parcial: 84.62% de éxito; MTBF/MTTR no medidos |
-| R-09 | Verificar dependencias y secretos | pip-audit, gitleaks | pip-audit verificado; gitleaks pendiente |
-| R-10 | Mantener respaldo de Bronce | Copia externa verificable y prueba de restauración | Pendiente |
+| R-09 | Verificar dependencias y secretos | pip-audit y Gitleaks | Verificado: ambos ejecutados sin hallazgos reportados |
+| R-10 | Mantener respaldo de Bronce | ZIP externo y restauracion con SHA-256 | Verificado: 30 de 30 archivos coinciden |
 | R-11 | Ejecutar pruebas, lint y puerta de calidad en CI | Workflow E1 calidad verde | Verificado |
 | R-12 | Documentar SQA y defectos | PLAN_SQA.md, SEGURIDAD_Y_CONFIABILIDAD.md | Documentado; revisión externa pendiente |
+

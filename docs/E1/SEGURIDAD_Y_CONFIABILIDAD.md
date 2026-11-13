@@ -2,7 +2,15 @@
 
 ## Captura de fuentes (captura de pantalla del historial de Actions)
 
-Ventana visible: 9–12 de noviembre de 2026; 13 ejecuciones visibles: 11 exitosas y 2 fallidas. Tasa de éxito por ejecución = 11/13 = **84.62%**, por debajo del objetivo E0 del 95%. Las tres ejecuciones programadas visibles (10, 11 y 12 de noviembre) tuvieron éxito (3/3). La imagen no acredita cobertura del 6 al 8 ni del 13 de noviembre. **No confundir tasa de éxito con disponibilidad temporal.**
+**Actualización al 13 de noviembre de 2026.** El historial de GitHub Actions «Captura de fuentes» presenta 14 ejecuciones: 12 exitosas y 2 fallidas.
+
+La tasa de éxito por ejecución es:
+
+**12 / 14 × 100 = 85.71 %.**
+
+El resultado permanece por debajo del objetivo de confiabilidad del 95 % definido en E0. Las dos fallas históricas corresponden a los defectos DEF-001 y DEF-002, documentados previamente.
+
+La tasa de éxito por ejecución no equivale a disponibilidad temporal. No se dispone de evidencia suficiente para calcular MTBF, MTTR o disponibilidad temporal verificables. No se atribuyen valores estimados a estas métricas.
 
 ## Defectos observados
 
@@ -18,14 +26,38 @@ Las duraciones de los workflows (26 s y 23 s para las fallas) **no** son tiempos
 - El workflow E1 declara `permissions: contents: read`.
 - `pip-audit` ejecutado localmente: `No known vulnerabilities found`; E1 CI verde tras incorporar la comprobación.
 - Ruff y pytest ejecutados localmente y en CI: 0 errores de Ruff y 7 pruebas aprobadas.
-- **Pendiente de ejecutar y adjuntar evidencia:** gitleaks sobre historial completo, revisión de secretos y política de respaldo/recuperación de Bronce.
 
-## Comandos de evidencia pendientes
+### Auditoría de secretos — Gitleaks
 
-```powershell
-# Si Docker está instalado, revisar historial sin instalar gitleaks localmente:
-docker run --rm -v "${PWD}:/repo" ghcr.io/gitleaks/gitleaks:latest git /repo --redact --verbose
-# Guardar el resultado y registrar la versión y fecha. No publicar secretos detectados.
-```
+**Fecha:** 13 de noviembre de 2026.
 
-Si Docker no está disponible, instalar gitleaks desde su distribución oficial y ejecutar `gitleaks git . --redact --verbose`. Revisar la versión y sintaxis instalada. No declarar el escaneo completado antes de ejecutarlo.
+**Herramienta:** Gitleaks, ejecutado mediante Docker.
+
+**Comando utilizado:**
+`docker run --rm -v "${PWD}:/repo" ghcr.io/gitleaks/gitleaks:latest git /repo --redact --verbose`
+
+**Resultados:**
+- Commits analizados: 61.
+- Volumen examinado: aproximadamente 6.05 MB.
+- Duración del escaneo: 2.01 segundos.
+- Secretos detectados: 0.
+- Mensaje final: `no leaks found`.
+
+**Conclusión:** No se identificaron posibles secretos mediante las reglas de Gitleaks en el historial examinado. El resultado constituye evidencia de la revisión de seguridad, sin garantizar que no existan otros riesgos.
+## Respaldo y restauracion de Bronce
+
+Fecha: 13 de noviembre de 2026.
+
+Archivo: trusted-data-lab-backup-20261113_155739.zip
+
+Ubicacion: directorio personal del usuario, fuera del repositorio.
+
+Metodo: Compress-Archive y Expand-Archive de PowerShell.
+
+Verificacion:
+- Archivos originales: 30.
+- Archivos restaurados: 30.
+- Comparacion SHA-256 por archivo: sin diferencias.
+- Resultado: RESTAURACION VERIFICADA.
+
+El respaldo se conserva separado del repositorio.
