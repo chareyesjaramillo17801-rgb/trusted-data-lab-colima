@@ -1,5 +1,6 @@
 """Tablero E1. Consume exclusivamente productos locales generados por el pipeline."""
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -7,6 +8,35 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
 ORO = ROOT / 'data' / 'oro'
+
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+def preparar_datos():
+    archivos_necesarios = [
+        ORO / "reporte_calidad.json",
+        ORO / "indice_shf_colima.parquet",
+        ORO / "comparacion_modelos.csv",
+        ORO / "pronosticos_exploratorios.csv",
+        ORO / "diagnostico_ampliado.csv",
+    ]
+
+    if all(archivo.exists() for archivo in archivos_necesarios):
+        return
+
+    from pipeline.analisis_e1 import run
+    from pipeline.ejecutar import principal
+    from pipeline.estadistica import analizar
+
+    with st.spinner("Preparando datos del observatorio..."):
+        principal()
+        analizar()
+        run()
+
+
+preparar_datos()
+
 st.set_page_config(page_title='Observatorio inmobiliario · Colima', page_icon='🏠', layout='wide')
 st.title('🏠 Observatorio inmobiliario de Colima')
 st.caption('TRUSTED DATA LAB · E1 · Datos públicos SNIIV y SHF · Resultados exploratorios, no avalúos ni precios de renta')
