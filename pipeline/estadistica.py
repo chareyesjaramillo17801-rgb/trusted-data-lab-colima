@@ -24,7 +24,7 @@ def analizar():
         q1,q3=serie.quantile([.25,.75]); iqr=q3-q1
         n_atipicos=int(((serie<q1-1.5*iqr)|(serie>q3+1.5*iqr)).sum())
         train=serie.iloc[:-8]; test=serie.iloc[-8:]
-        diagnosticos.append({'municipio':municipio,'observaciones':len(serie),'atipicos_iqr_nivel':n_atipicos,'adf_pvalor_nivel':float(adfuller(serie,autolag='AIC')[1]),'adf_pvalor_diferencia':float(adfuller(serie.diff().dropna(),autolag='AIC')[1]),'acf_lag1':float(acf(serie,nlags=1)[1]),'pacf_lag1':float(pacf(serie,nlags=1)[1])})
+        diagnosticos.append({'municipio':municipio,'observaciones':len(serie),'atipicos_iqr_nivel':n_atipicos,'adf_pvalor_nivel':float(adfuller(serie,autolag='AIC',result_object=False)[1]),'adf_pvalor_diferencia':float(adfuller(serie.diff().dropna(),autolag='AIC',result_object=False)[1]),'acf_lag1':float(acf(serie,nlags=1)[1]),'pacf_lag1':float(pacf(serie,nlags=1)[1])})
         modelos={
             'SES':lambda train=train, test=test: SimpleExpSmoothing(train,initialization_method='estimated').fit().forecast(len(test)),
             'Holt':lambda train=train, test=test: Holt(train,initialization_method='estimated').fit().forecast(len(test)),

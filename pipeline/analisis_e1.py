@@ -53,15 +53,61 @@ def run():
         residuos = np.asarray(ajuste_final.resid, dtype=float)
         residuos = residuos[np.isfinite(residuos)]
         ljung = float(acorr_ljungbox(residuos, lags=[min(8, max(1,len(residuos)//5))], return_df=True)['lb_pvalue'].iloc[0])
-        decomp = seasonal_decompose(y, model='additive', period=4, extrapolate_trend='freq')
-        p_adf = float(adfuller(y, autolag='AIC')[1])
-        p_diff = float(adfuller(y.diff().dropna(), autolag='AIC')[1])
-        pred_fut = np.asarray(ajuste_final.forecast(4),dtype=float)
-        # Intervalos empíricos aproximados, no intervalos calibrados de predicción.
-        sigma = float(np.std(residuos,ddof=1))
-        ultimo = pd.Period(year=int(d['Año'].iloc[-1]),quarter=int(d['Trimestre'].iloc[-1]),freq='Q')
+        decomp = seasonal_decompose(y, model='additive', period=4, extrapolate_trend='period')
+        p_adf = float(adfuller(y, autolag='AIC', result_object=False)[1])
+        p_diff = float(adfuller(y.diff().dropna(), autolag='AIC', result_object=False)[1])
+        sigma = float(np.std(residuos, ddof=1))
+        # ARIMA: intervalos predictivos paramétricos del modelo ajustado.
+        # Holt/Holt-Winters: bandas empíricas de errores fuera de muestra
+        # con origen móvil, diferenciadas por horizonte; no garantizan cobertura.
+        if mejor.startswith('ARIMA'):
+            pred_obj = ajuste_final.get_forecast(steps=4)
+            pred_fut = np.asarray(pred_obj.predicted_mean, dtype=float)
+            intervalos = np.asarray(pred_obj.conf_int(alpha=0.05), dtype=float)
+            metodo = 'IC predictivo 95% paramétrico ARIMA; condicionado a supuestos del modelo'
+            n_calibracion = None
+        else:
+            pred_fut = np.asarray(ajuste_final.forecast(4), dtype=float)
+            errores = {h: [] for h in range(1, 5)}
+            # Usar los últimos 20 orígenes con cuatro periodos observados adelante.
+            # La serie se reentrena solo con información anterior a cada origen.
+            inicio = max(24, len(y) - 4 - 20)
+            for corte in range(inicio, len(y) - 3):
+                pasado = y.iloc[:corte]
+                try:
+                    with warnings.catch_warnings():
+                        warnings.simplefilter('ignore')
+                        if mejor == 'Holt':
+                            ajuste_cal = Holt(pasado, initialization_method='estimated').fit()
+                        else:
+                            ajuste_cal = ExponentialSmoothing(
+                                pasado, trend='add', seasonal='add', seasonal_periods=4,
+                                initialization_method='estimated'
+                            ).fit()
+                    previsto = np.asarray(ajuste_cal.forecast(4), dtype=float)
+                    observado = y.iloc[corte:corte + 4].to_numpy(dtype=float)
+                    for h in range(1, 5):
+                        errores[h].append(float(observado[h - 1] - previsto[h - 1]))
+                except (ValueError, np.linalg.LinAlgError):
+                    continue
+            n_calibracion = min(map(len, errores.values()))
+            if n_calibracion < 10:
+                raise RuntimeError(f'Insuficientes orígenes de validación para bandas de {municipio}')
+            intervalos = np.asarray([
+                [pred_fut[h - 1] + np.quantile(errores[h], 0.025),
+                 pred_fut[h - 1] + np.quantile(errores[h], 0.975)]
+                for h in range(1, 5)
+            ], dtype=float)
+            metodo = 'Bandas empíricas percentiles 2.5-97.5 de backtesting; cobertura 95% NO demostrada'
+        ultimo = pd.Period(year=int(d['Año'].iloc[-1]), quarter=int(d['Trimestre'].iloc[-1]), freq='Q')
         for h, valor in enumerate(pred_fut, 1):
-            pronosticos.append({'municipio':municipio,'periodo':str(ultimo+h),'modelo':mejor,'pronostico':float(valor),'banda_inferior_aproximada':float(valor-1.96*sigma*np.sqrt(h)),'banda_superior_aproximada':float(valor+1.96*sigma*np.sqrt(h)),'metodo_banda':'heurística residual 1.96*sigma*sqrt(h); no calibrada'})
+            pronosticos.append({
+                'municipio': municipio, 'periodo': str(ultimo + h), 'modelo': mejor,
+                'pronostico': float(valor),
+                'banda_inferior_aproximada': float(intervalos[h - 1, 0]),
+                'banda_superior_aproximada': float(intervalos[h - 1, 1]),
+                'metodo_banda': metodo, 'origenes_backtesting': n_calibracion,
+            })
         resultados.append({'municipio':municipio,'modelo_elegido':mejor,'mae_validacion':min(evaluados)[0],'observaciones':len(y),'adf_p_nivel':p_adf,'adf_p_primera_diferencia':p_diff,'ljung_box_p_residuos':ljung,'descomposicion_tendencia_final':float(decomp.trend.iloc[-1]),'descomposicion_estacional_ultimo':float(decomp.seasonal.iloc[-1]),'residuos_desviacion':sigma})
     # Transformaciones para análisis, SIN sustituir las unidades originales.
     s = registros.copy()
@@ -80,7 +126,7 @@ def run():
     reporte={'sniiv_faltantes':{k:int(v) for k,v in registros.isna().sum().items()},'shf_colima_faltantes':{k:int(v) for k,v in datos.isna().sum().items()},'sniiv_atipicos_iqr_global':int(s['atipico_iqr_global'].sum()),'politica':'Sin imputación: no se observan nulos SNIIV y Municipio nulo SHF indica agregado estatal. Atípicos se señalan, no se borran.','reduccion':'Se conserva un subconjunto analítico de columnas para pronóstico municipal SHF y agregados trimestrales SNIIV.'}
     (DEST/'diagnostico_preprocesamiento.json').write_text(json.dumps(reporte,ensure_ascii=False,indent=2),encoding='utf-8')
     print(pd.DataFrame(resultados).to_string(index=False))
-    print('Pronósticos exploratorios:',len(pronosticos),'filas; bandas NO calibradas')
+    print('Pronósticos exploratorios:',len(pronosticos),'filas; revisar supuestos y cobertura de bandas')
     return reporte
 
 if __name__ == '__main__':
