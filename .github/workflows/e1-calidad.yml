@@ -15,9 +15,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -r requirements-e1.txt
-      - run: python -m pytest -q
       - run: python -m pipeline.ejecutar
+      - run: python -m pytest -q
       - run: python -m pipeline.estadistica
+      - run: python -m pipeline.analisis_e1
       - uses: actions/upload-artifact@v4
         with:
           name: e1-reporte-calidad
@@ -25,3 +26,6 @@ jobs:
             data/oro/reporte_calidad.json
             data/oro/comparacion_modelos.csv
             data/oro/diagnostico_series.json
+            data/oro/diagnostico_ampliado.csv
+            data/oro/diagnostico_preprocesamiento.json
+            data/oro/pronosticos_exploratorios.csv
