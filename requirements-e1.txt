@@ -1,0 +1,7 @@
+-r requirements.txt
+pandera[pandas]>=0.20,<1
+numpy>=1.26
+scipy>=1.14
+scikit-learn>=1.6
+statsmodels>=0.14
+ruff>=0.9
