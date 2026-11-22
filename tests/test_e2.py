@@ -20,3 +20,13 @@ def test_linaje_agregado_conserva_todos_los_ids():
                           'trimestre': [1, 1], 'id_fila_bronce': ['sniiv:8', 'sniiv:3']})
     resultado = vinculos_agregacion(datos, ['municipio', 'año', 'trimestre'])
     assert json.loads(resultado.loc[0, 'ids_filas_bronce']) == ['sniiv:3', 'sniiv:8']
+
+def test_cruce_espacial_municipios_colima():
+    from pipeline.cruce_espacial_e2 import validar_cruce_espacial
+
+    resultado = validar_cruce_espacial()
+
+    assert len(resultado) == 10
+    assert resultado["cvegeo"].notna().all()
+    assert (resultado["cvegeo_origen"] == resultado["cvegeo"]).all()
+    assert resultado["cvegeo"].nunique() == 10

@@ -145,3 +145,6 @@ La documentación técnica se encuentra en `docs/E2/LINAJE.md`.
 **Limitaciones documentadas:** no se identificó una licencia individual específica del archivo SHF. Las respuestas HTTP 404 de `robots.txt` no se interpretan como permisos ni prohibiciones. Las condiciones de acceso deberán revisarse nuevamente si cambian los servicios o se amplía la extracción.
 
 Esta declaración documenta las comprobaciones efectuadas, sin constituir una certificación jurídica.
+## 10. Alcance del cruce espacial E2
+
+La comprobación `pipeline/cruce_espacial_e2.py` genera puntos representativos de polígonos oficiales y verifica con `gpd.sjoin()` que correspondan a los municipios de origen. Estos puntos **no representan inmuebles, domicilios ni casos individuales**. La validación no autoriza inferir distribución intramunicipal de precios o rentas.

@@ -1,133 +1,34 @@
 # Relatoría E2 — TRUSTED DATA LAB
 
-**Proyecto:** Observatorio inmobiliario de Colima
-**Entrega:** E2 — Integración especializada, ética y trazabilidad
-**Modalidad:** Trabajo individual
-**Estado:** implementación técnica validada localmente; cierre documental y publicación pendientes.
+**Proyecto:** Observatorio inmobiliario de Colima · **Modalidad:** individual · **Estado:** cierre pendiente.
 
-## 1. Objetivo de la entrega
+## 1. Objetivo
 
-Ampliar el observatorio inmobiliario de Colima mediante la integración de una fuente de información especializada, fortalecer la trazabilidad de los datos desde Bronce hasta Oro y documentar las consideraciones éticas y legales relacionadas con su utilización.
+Integrar cartografía oficial INEGI, permitir exploración municipal y reforzar trazabilidad de resultados Bronce–Plata–Oro, respetando límites éticos y de cobertura. La implementación documentada corresponde principalmente a Ingeniería de Datos.
 
-Se eligió la alternativa geoespacial para incorporar información territorial oficial y mejorar la exploración de los indicadores inmobiliarios.
+## 2. Cronología y tiempo
 
-## 2. Actividades realizadas
+- **09/11/2026:** incorporación de SHF según metadatos de Bronce; no consta hora exacta de descarga.
+- **13/11/2026:** commits E1 de limpieza, modelos, tablero y validaciones (`37c8390`, `d37437a`, `65f2131`). Son antecedentes de E2.
+- **22/11/2026, 14:36 -0600:** commit E2 [`1bdd739`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/commit/1bdd739): geoespacial, linaje y ética.
+- **22/11/2026:** validación local posterior de `gpd.sjoin()` con 10/10 municipios, 12 pruebas Pytest aprobadas y Ruff sin errores (informado por la desarrolladora); pendiente commit del cambio.
 
-### 2.1. Integración del Marco Geoestadístico del INEGI
+**Tiempo:** `calidad/tiempo-individual.csv` registra únicamente 8.25 h **estimadas retrospectivamente de E0**. No existe cronometraje verificable de E2; por integridad no se atribuyen horas ficticias a esta etapa.
 
-Se incorporó información geográfica municipal del estado de Colima mediante el servicio web oficial del INEGI.
+## 3. Decisiones y alternativas
 
-Se desarrolló el módulo `pipeline/geoespacial_e2.py`, encargado de procesar la información geográfica y generar el producto `data/oro/municipios_colima.geojson`.
+Se eligió INEGI en lugar de coordenadas de anuncios de renta no verificadas. Se guardó la respuesta original en Bronce, se validaron 10 polígonos y se exportó GeoJSON para el mapa. La unión `gpd.sjoin()` usa puntos representativos derivados de polígonos para validar correspondencia; **no** localiza inmuebles ni demuestra un vínculo espacial independiente con SHF/SNIIV. Se optó por OpenStreetMap frente a una capa que requería clave API. Se preservó la distinción entre indicadores estatales y municipales.
 
-**Resultado:** se obtuvieron 10 municipios con geometrías válidas, conservando referencias a la captura original en Bronce.
+## 4. Defectos y correcciones
 
-### 2.2. Desarrollo del mapa interactivo
+Los defectos E0 `D-01` y `D-02` están registrados en `calidad/defectos-individual.csv`. En E2 se documentaron dificultades de serialización GeoJSON, capa base con clave API, selección municipal y pérdida de columnas de linaje al regenerar CSV. Se aplicaron serialización compatible, OpenStreetMap, clic en polígonos y ejecutor `pipeline/ejecutar_analisis.py`. La bitácora original **no contiene identificadores ni fechas verificadas de detección de esos incidentes E2**; no se inventan.
 
-Se incorporó una sección cartográfica en `dashboard/app.py`.
+## 5. Aprendizajes y límites por materia
 
-El mapa permite visualizar los límites municipales, acercar y alejar la vista, explorar calles mediante OpenStreetMap y seleccionar municipios directamente sobre sus polígonos.
+- **Ingeniería de Datos:** la trazabilidad requiere IDs de origen, hashes, granularidad y fechas con método de obtención. El Excel SHF tiene metadato de incorporación `2026-11-09`, pero el pipeline aún usa `mtime_archivo_no_verificado`.
+- **Estadística:** se dispone de pronósticos exploratorios previos; el experimento factorial y ANOVA específicos de E2 **no se evidencian** en este repositorio.
+- **Calidad:** las pruebas automatizadas verifican comportamientos definidos, pero **no sustituyen** evaluación ISO ni auditoría cruzada externa, aún no acreditadas.
 
-Al seleccionar un municipio, se actualiza la información disponible en el panel.
+## 6. Evidencias, ética y herramientas
 
-La visualización se probó localmente. La publicación actualizada en Streamlit Cloud permanece pendiente de comprobación.
-
-### 2.3. Fortalecimiento del linaje de datos
-
-Se verificó la trazabilidad de los productos principales de Oro, incluyendo registros SHF, agregados SNIIV, comparaciones municipales y variables analíticas.
-
-Se conservaron identificadores de observaciones originales, rutas Bronce, hashes SHA-256 y fechas registradas.
-
-Para los agregados se conservaron los identificadores de las observaciones contribuyentes.
-
-### 2.4. Incorporación de linaje analítico
-
-Se identificó que los archivos CSV de modelos, pronósticos y diagnósticos no conservaban referencias a las observaciones históricas utilizadas.
-
-Se desarrolló `pipeline/linaje_analitico_e2.py` para incorporar dichas referencias.
-
-Los resultados fueron:
-
-| Producto | Resultados | Referencias históricas |
-|---|---:|---|
-| Comparación de modelos | 8 | 78 entrenamiento y 8 prueba |
-| Pronósticos exploratorios | 8 | 86 observaciones por resultado |
-| Diagnóstico ampliado | 2 | 86 observaciones por resultado |
-
-Se verificó que los identificadores registrados correspondieran a los datos SHF de Plata.
-
-### 2.5. Automatización de análisis
-
-Se creó `pipeline/ejecutar_analisis.py` para coordinar la ejecución de los modelos estadísticos y la posterior incorporación de su linaje.
-
-Esto permite regenerar los productos analíticos siguiendo un orden definido, sin modificar las fórmulas originales de los modelos.
-
-### 2.6. Validación automatizada
-
-Se incorporó `tests/test_linaje_analitico_e2.py` para comprobar la correspondencia de los identificadores Bronce con los registros históricos SHF.
-
-Durante las pruebas se detectó que una prueba existente de E1 regeneraba los CSV y sobrescribía las columnas de trazabilidad.
-
-Se corrigió la interacción entre las pruebas E1 y E2 para conservar el linaje después de la regeneración.
-
-**Resultado reportado:** verificaciones de Ruff correctas y 11 pruebas automatizadas aprobadas.
-
-## 3. Problemas encontrados y soluciones
-
-| Problema | Solución |
-|---|---|
-| Incompatibilidad al escribir GeoJSON mediante componentes geoespaciales del entorno local | Se utilizó una serialización GeoJSON compatible con el entorno |
-| Mapa con fondo cartográfico que solicitaba clave de API | Se configuró OpenStreetMap |
-| Selección municipal inicialmente separada del mapa | Se implementó selección interactiva mediante clic en polígonos |
-| CSV estadísticos sin trazabilidad | Se incorporaron identificadores de observaciones históricas |
-| Pérdida de linaje durante las pruebas E1 | Se ajustó la secuencia de regeneración y restauración del linaje |
-| Problemas de codificación de la columna `Año` en comandos PowerShell | Se utilizaron secuencias Unicode en las comprobaciones |
-
-## 4. Decisiones técnicas
-
-Se conservaron las capas Bronce, Plata y Oro y la zona de cuarentena establecidas previamente.
-
-No se modificaron los cálculos estadísticos de E1 para agregar trazabilidad.
-
-Se mantuvieron separados los registros municipales y estatales de SHF para evitar comparaciones geográficas incorrectas.
-
-La cartografía utiliza geometrías oficiales del INEGI, sin inventar límites municipales ni coordenadas.
-
-Los registros SNIIV y el índice SHF se presentan como indicadores históricos, no como inventario de inmuebles disponibles para renta.
-
-## 5. Consideraciones éticas
-
-El proyecto utiliza información pública institucional y evita incorporar datos personales de propietarios, arrendatarios o entrevistados en la visualización.
-
-Se reconocen las diferencias de cobertura entre fuentes, los límites de interpretación de los indicadores y los supuestos de los pronósticos.
-
-La declaración se encuentra en `docs/etica-datos.md`.
-
-La revisión específica de términos, licencias y `robots.txt` debe cerrarse con evidencia verificable antes de la entrega final.
-
-## 6. Resultados alcanzados
-
-- Integración geográfica de 10 municipios de Colima.
-- Mapa municipal interactivo probado localmente.
-- Procesamiento validado de 2,140 registros SNIIV y 258 SHF.
-- Generación de 131 comparaciones municipales.
-- Trazabilidad de los productos principales de Oro.
-- Referencias históricas incorporadas a modelos, diagnósticos y pronósticos.
-- Pruebas automatizadas aprobadas.
-
-## 7. Limitaciones y trabajo pendiente
-
-La cobertura municipal de SHF es limitada y no debe confundirse con la cobertura territorial del mapa.
-
-Las fechas SHF basadas en la modificación del archivo no equivalen a fechas de captura verificadas.
-
-Los resultados estadísticos son exploratorios y no garantizan valores futuros.
-
-Antes del cierre E2 se requiere completar la evidencia de condiciones de uso de las fuentes, verificar la publicación final del dashboard, registrar el commit y crear el tag `e2`.
-
-## 8. Conclusión
-
-La entrega E2 amplió el observatorio con una dimensión geoespacial y fortaleció la capacidad de rastrear los resultados hasta sus fuentes originales.
-
-La incorporación del mapa interactivo facilita la exploración territorial, mientras que la trazabilidad de los productos analíticos permite revisar qué observaciones históricas sustentan los indicadores y pronósticos.
-
-La implementación local fue validada mediante ejecución y pruebas automatizadas. El cierre definitivo depende de completar las verificaciones documentales y la publicación final.
+Repositorio: https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima. Ficha `docs/E2/ENTREGA.md`; linaje `docs/E2/LINAJE.md`; ética `docs/etica-datos.md`; pruebas `tests/test_e2.py`; bitácoras `calidad/`. La documentación ética distingue fuentes públicas, permisos, `robots.txt`, sesgos y privacidad. Se utilizó asistencia de IA (ChatGPT) para orientar revisión, redacción y propuesta de código; las decisiones, ejecuciones y validaciones se contrastaron con archivos y resultados locales. El dashboard público, el cierre de CI, el tag y el formulario deben verificarse al finalizar.

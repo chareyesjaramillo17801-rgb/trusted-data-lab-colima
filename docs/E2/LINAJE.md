@@ -160,3 +160,8 @@ La trazabilidad documentada identifica observaciones y archivos fuente. No susti
 Las fechas de ingesta no verificadas se mantienen explícitamente identificadas.
 
 Los resultados estadísticos no representan observaciones futuras reales ni garantías de comportamiento del mercado inmobiliario.
+## 9. Aclaración sobre metadatos SHF (revisión E2)
+
+El archivo Bronce `data/bronce/shf/Indice_SHF_datos_abiertos_2_trim_2026.metadata.json` contiene `retrieved_date: 2026-11-09` y declara que corresponde a la **incorporación al proyecto**, sin hora exacta de descarga. El pipeline actual **no utiliza** ese campo al construir `fecha_ingesta_utc`: utiliza `mtime_archivo_no_verificado` como fecha de referencia. Ambos datos deben distinguirse; no debe inferirse una hora UTC de captura a partir de la fecha de incorporación.
+
+La operación `pipeline/cruce_espacial_e2.py` verifica la correspondencia de puntos representativos derivados de los polígonos municipales INEGI mediante `gpd.sjoin(predicate="within")`. No agrega registros inmobiliarios nuevos ni puntos de viviendas.

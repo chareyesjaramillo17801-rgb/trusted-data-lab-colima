@@ -1,85 +1,39 @@
-# Ficha de entrega E2 — TRUSTED DATA LAB
+# Entrega E2 — TRUSTED DATA LAB | Observatorio inmobiliario de Colima
 
-**Proyecto:** Observatorio inmobiliario de Colima
-**Entrega:** E2 — Integración especializada, ética y trazabilidad
-**Estado:** implementación local validada; pendiente cierre documental, publicación y tag `e2`.
+**Modalidad:** individual. **Estado:** implementación local probada; cierre y tag `e2` pendientes.
+**Repositorio:** https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima
+**Commit base E2 publicado:** [`1bdd739`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/commit/1bdd739) (22/11/2026, 14:36 -0600). Las correcciones posteriores se documentarán con su propio commit.
 
-## 1. Integración de fuente especializada
+## Ingeniería de Datos: fuente especializada
 
-Se integró el Marco Geoestadístico del INEGI mediante su servicio web de información vectorial municipal.
+- **Fuente oficial:** INEGI, Marco Geoestadístico, [servicio municipal de Colima](https://gaia.inegi.org.mx/wscatgeo/v2/geo/mgem/06).
+- **Bronce:** `data/bronce/inegi/` (respuestas originales, fecha, URL y SHA-256).
+- **Transformación:** [`pipeline/geoespacial_e2.py`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/pipeline/geoespacial_e2.py); valida 10 geometrías municipales y genera `data/oro/municipios_colima.geojson`.
+- **Unión espacial verificable:** `pipeline/cruce_espacial_e2.py` calcula puntos representativos *derivados de los polígonos oficiales* y los relaciona con los mismos polígonos mediante `gpd.sjoin(..., predicate="within")`. Resultado local: **10/10 correspondencias**, sin discordancias. **Alcance:** validación geométrica, no georreferenciación de viviendas ni relación espacial independiente con los indicadores inmobiliarios.
+- **Mapa:** [`dashboard/app.py`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/dashboard/app.py), con polígonos seleccionables y fondo OpenStreetMap. Funcionamiento local probado; **publicación actualizada en Streamlit Cloud aún no comprobada**.
+- **Pruebas:** `tests/test_e2.py`; última ejecución local comunicada: **12 pruebas Pytest aprobadas** y **Ruff sin errores**.
 
-- **Fuente:** Instituto Nacional de Estadística y Geografía (INEGI).
-- **Endpoint:** https://gaia.inegi.org.mx/wscatgeo/v2/geo/mgem/06
-- **Procesamiento:** `pipeline/geoespacial_e2.py`.
-- **Captura:** archivo original conservado en `data/bronce/inegi/`.
-- **Producto Oro:** `data/oro/municipios_colima.geojson`.
-- **Resultado:** 10 municipios de Colima con geometrías geográficas.
-- **Visualización:** sección interactiva del mapa en `dashboard/app.py`.
+## Ingeniería de Datos: linaje Bronce → Plata → Oro
 
-El mapa permite explorar los municipios, seleccionar polígonos y consultar indicadores disponibles. La cartografía proviene del servicio oficial del INEGI; los indicadores dependen de la cobertura real de SNIIV y SHF.
+- [`docs/E2/LINAJE.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/E2/LINAJE.md) describe IDs de observaciones, rutas Bronce, SHA-256, agregados y productos analíticos.
+- SNIIV: 2,140 registros procesados; SHF Colima: 258 registros (incluye agregado estatal, **no** municipio de Colima); 131 comparaciones municipales Oro; INEGI: 10 municipios.
+- Los modelos conservan IDs históricos: 8 comparaciones (78 entrenamiento + 8 prueba), 8 pronósticos (86 referencias) y 2 diagnósticos (86 referencias).
+- **Limitación SHF:** el pipeline utiliza la fecha de modificación del archivo como `fecha_ingesta_utc`, marcada `mtime_archivo_no_verificado`. Sin embargo, el archivo `data/bronce/shf/Indice_SHF_datos_abiertos_2_trim_2026.metadata.json` consigna `retrieved_date: 2026-11-09` como fecha de incorporación al proyecto **sin hora exacta**. La fecha de archivo no debe presentarse como captura UTC confirmada.
 
-## 2. Integración y calidad de datos
+## Ingeniería de Datos: ética y legalidad
 
-La ejecución del pipeline produjo los siguientes resultados:
+[`docs/etica-datos.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/etica-datos.md) documenta fuentes SNIIV, SHF e INEGI; términos de uso, atribución, `robots.txt`, privacidad, sesgos y límites de interpretación. La revisión de licencias individuales se mantiene diferenciada de los permisos generales.
 
-| Indicador | Resultado |
-|---|---:|
-| Registros SNIIV procesados | 2,140 |
-| Registros SNIIV válidos | 2,140 |
-| Registros SNIIV rechazados | 0 |
-| Registros SHF Colima procesados | 258 |
-| Registros SHF válidos | 258 |
-| Registros SHF rechazados | 0 |
-| Comparaciones municipales Oro | 131 |
-| Municipios con geometría INEGI | 10 |
+## Estadística: evidencia de E2
 
-Las diferencias de cobertura entre fuentes se mantienen explícitas. Los municipios con geometría disponible no necesariamente tienen indicadores SHF municipales.
+**No acreditada en el repositorio revisado:** diseño factorial 2³ con aleatorización y réplicas, ANOVA de dos factores con tres niveles en uno, comparación factorial completo/fraccionado 2⁴ vs. 2^(4−1), análisis de residuos y corrida confirmatoria. Los pronósticos existentes de E1 **no sustituyen** estas evidencias. Deben realizarse y enlazarse antes de afirmar cumplimiento integral.
 
-## 3. Trazabilidad Bronce → Plata → Oro
+## Calidad: evidencia de E2
 
-Se incorporó linaje por registro en los productos principales de Oro, incluyendo identificadores de origen, rutas de archivos Bronce, huellas SHA-256 y fechas de ingesta registradas.
+**No acreditada en el repositorio revisado:** evaluación E2 con métricas ISO/IEC 25010 y 25012, contraste 9126/SQuaRE/9001 y auditoría cruzada de otro equipo con recepción de auditoría. `docs/E1/PLAN_SQA.md` es un plan previo, no prueba de ejecución de E2. La auditoría externa depende de un tercero; no debe inventarse.
 
-Los agregados SNIIV conservan las listas de registros contribuyentes. Las comparaciones municipales conservan referencias separadas para SNIIV y SHF.
+## Evidencias y cierre
 
-También se incorporó trazabilidad a los productos analíticos:
-
-- `comparacion_modelos.csv`: 8 resultados, con referencias a 78 periodos de entrenamiento y 8 de prueba por resultado.
-- `pronosticos_exploratorios.csv`: 8 resultados, con referencias a los 86 periodos históricos de cada municipio.
-- `diagnostico_ampliado.csv`: 2 resultados, con referencias a los 86 periodos históricos de cada municipio.
-
-Los módulos `pipeline/linaje_analitico_e2.py` y `pipeline/ejecutar_analisis.py` permiten regenerar los resultados analíticos junto con sus referencias.
-
-**Limitación:** la fecha de ingesta SHF se obtuvo de la fecha de modificación del archivo, no de metadatos de captura verificados. Los identificadores documentan la procedencia de los datos históricos; no constituyen por sí solos un registro completo de parámetros y versiones de ejecución de cada modelo.
-
-La descripción técnica se encuentra en `docs/E2/LINAJE.md`.
-
-## 4. Ética y legalidad
-
-Se elaboró `docs/etica-datos.md`, que documenta fuentes, minimización de datos personales, sesgos, límites de interpretación y trazabilidad.
-
-**Pendiente de cierre:** registrar los resultados verificables de la revisión de licencias, términos de uso y archivos `robots.txt` de las fuentes.
-
-## 5. Evidencias de validación
-
-- Captura y procesamiento geoespacial: 10 municipios obtenidos.
-- Mapa interactivo: probado localmente con selección de municipios y navegación.
-- Pipeline de calidad: ejecutado con 2,140 registros SNIIV válidos y 258 SHF válidos.
-- Linaje analítico: comprobadas las particiones de entrenamiento y prueba y la correspondencia con identificadores SHF.
-- Ruff: verificaciones aprobadas.
-- Pytest: 11 pruebas aprobadas, según la última ejecución reportada.
-- Publicación actualizada del dashboard: pendiente de comprobar.
-- Commit final E2: pendiente.
-- Tag `e2`: pendiente.
-- URL de entrega: pendiente.
-
-## 6. Limitaciones
-
-Los registros SNIIV no representan anuncios de vivienda disponibles en renta. El índice SHF no representa precios de renta ni precios individuales de inmuebles.
-
-Los pronósticos son exploratorios y están condicionados a los datos y supuestos de los modelos. No deben presentarse como predicciones garantizadas.
-
-La cobertura SHF municipal utilizada para los análisis corresponde a Manzanillo y Villa de Álvarez; los registros SHF estatales no deben atribuirse al municipio de Colima.
-
-## 7. Cierre
-
-La implementación técnica local y las pruebas se encuentran realizadas. La entrega E2 se considerará cerrada después de documentar las verificaciones legales pendientes, comprobar la publicación final, registrar el commit y crear el tag `e2`.
+- [`docs/relatoria-E2.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/relatoria-E2.md): cronología, incidencias y limitaciones.
+- [`calidad/defectos-individual.csv`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/calidad/defectos-individual.csv) y [`calidad/tiempo-individual.csv`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/calidad/tiempo-individual.csv): bitácoras, con registro temporal de E2 no medido.
+- **Pendientes antes del cierre:** verificar Streamlit Cloud; correr CI después del commit de cierre; confirmar alcance de evaluación de las tres materias; crear tag `e2` sobre el commit final; enviar enlace al formulario oficial.
