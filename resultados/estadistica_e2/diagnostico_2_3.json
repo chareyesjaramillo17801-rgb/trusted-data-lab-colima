@@ -1,0 +1,9 @@
+{
+  "modelo": "2_3",
+  "n": 24,
+  "r2": 0.9972923679060383,
+  "residuos_shapiro_p": 0.9914278599163947,
+  "levene_p": 0.8990184365164251,
+  "durbin_watson_orden_ejecucion": 1.8997213180361452,
+  "advertencia": "Shapiro, Levene y Durbin-Watson son diagn\u00f3sticos orientativos; revisar residuos y orden de corrida"
+}

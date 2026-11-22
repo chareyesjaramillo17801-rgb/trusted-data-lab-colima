@@ -1,0 +1,9 @@
+{
+  "modelo": "fraccion",
+  "n": 24,
+  "r2": 0.8588594056364537,
+  "residuos_shapiro_p": 0.02140823894738738,
+  "levene_p": 0.8649340520818319,
+  "durbin_watson_orden_ejecucion": 1.7260638534385069,
+  "advertencia": "Shapiro, Levene y Durbin-Watson son diagn\u00f3sticos orientativos; revisar residuos y orden de corrida"
+}

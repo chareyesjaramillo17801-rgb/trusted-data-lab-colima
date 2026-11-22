@@ -1,0 +1,30 @@
+{
+  "fuente": "data\\bronce\\sniiv_registro\\registro_20261122T202044Z.json",
+  "filas_fuente": 2140,
+  "fecha_ejecucion_utc": "2026-11-22T22:30:24.041311+00:00",
+  "semilla": 20261122,
+  "replicas_por_tratamiento": 3,
+  "ciclos_por_corrida": 30,
+  "python": "3.13.15",
+  "pandas": "2.3.3",
+  "tratamiento_ganador_2_3": {
+    "A": "+",
+    "B": "-",
+    "C": "-"
+  },
+  "confirmacion_media_base_ms": 248.94662,
+  "confirmacion_media_mejor_ms": 130.13566,
+  "mejora_porcentual_confirmada": 47.72547624868335,
+  "interpretacion": "Una mejora negativa significa que el tratamiento seleccionado no mejoró en confirmación.",
+  "alias_fraccion": [
+    "I=ABCD",
+    "A=BCD",
+    "B=ACD",
+    "C=ABD",
+    "D=ABC",
+    "AB=CD",
+    "AC=BD",
+    "AD=BC"
+  ],
+  "nota": "Diseño experimental de ingeniería; tiempos de una máquina, no precios de vivienda."
+}
