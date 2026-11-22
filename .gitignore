@@ -3,9 +3,13 @@ __pycache__/
 .pytest_cache/
 .env
 *.pyc
+
 data/plata/*
 !data/plata/.gitkeep
+
 data/oro/*
 !data/oro/.gitkeep
+!data/oro/municipios_colima.geojson
+
 data/cuarentena/*
 !data/cuarentena/.gitkeep
