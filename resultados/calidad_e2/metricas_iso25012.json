@@ -1,0 +1,173 @@
+{
+  "ejecutado_utc": "2026-11-22T23:26:53.795183+00:00",
+  "alcance": "mediciones descriptivas de productos Oro existentes",
+  "advertencias": [
+    "La completitud global incluye nulos estructurales; revisar cada columna antes de atribuir defectos.",
+    "Unicidad de fila completa no prueba unicidad de la clave de negocio.",
+    "La presencia de origen/hash no demuestra por si sola integridad criptografica del linaje.",
+    "ISO/IEC 25010 no se acredita solo con estas metricas de datos."
+  ],
+  "productos": [
+    {
+      "producto": "registros_trimestrales",
+      "archivo": "data\\oro\\registros_trimestrales.parquet",
+      "estado": "evaluado",
+      "filas": 383,
+      "columnas": 10,
+      "completitud_celdas_pct": 100.0,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta"
+      ],
+      "filas_con_origen_y_hash": 383,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {}
+    },
+    {
+      "producto": "indice_shf_colima",
+      "archivo": "data\\oro\\indice_shf_colima.parquet",
+      "estado": "evaluado",
+      "filas": 258,
+      "columnas": 15,
+      "completitud_celdas_pct": 91.11,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [
+        "id_fila_bronce"
+      ],
+      "duplicados_clave": 0,
+      "columnas_linaje": [
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta",
+        "id_fila_bronce"
+      ],
+      "filas_con_origen_y_hash": 258,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {
+        "Global": 258,
+        "Municipio": 86
+      }
+    },
+    {
+      "producto": "comparacion_municipal",
+      "archivo": "data\\oro\\comparacion_municipal.parquet",
+      "estado": "evaluado",
+      "filas": 131,
+      "columnas": 16,
+      "completitud_celdas_pct": 100.0,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "id_fila_bronce"
+      ],
+      "filas_con_origen_y_hash": null,
+      "trazabilidad_origen_hash_pct": null,
+      "nulos_por_columna": {}
+    },
+    {
+      "producto": "variables_analiticas_sniiv",
+      "archivo": "data\\oro\\variables_analiticas_sniiv.parquet",
+      "estado": "evaluado",
+      "filas": 2140,
+      "columnas": 22,
+      "completitud_celdas_pct": 100.0,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta",
+        "id_fila_bronce"
+      ],
+      "filas_con_origen_y_hash": 2140,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {}
+    },
+    {
+      "producto": "comparacion_modelos",
+      "archivo": "data\\oro\\comparacion_modelos.csv",
+      "estado": "evaluado",
+      "filas": 8,
+      "columnas": 16,
+      "completitud_celdas_pct": 93.75,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "ids_bronce_entrenamiento",
+        "ids_bronce_prueba",
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta"
+      ],
+      "filas_con_origen_y_hash": 8,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {
+        "error": 8
+      }
+    },
+    {
+      "producto": "pronosticos_exploratorios",
+      "archivo": "data\\oro\\pronosticos_exploratorios.csv",
+      "estado": "evaluado",
+      "filas": 8,
+      "columnas": 16,
+      "completitud_celdas_pct": 96.88,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "ids_bronce_entrenamiento",
+        "ids_bronce_prueba",
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta"
+      ],
+      "filas_con_origen_y_hash": 8,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {
+        "origenes_backtesting": 4
+      }
+    },
+    {
+      "producto": "diagnostico_ampliado",
+      "archivo": "data\\oro\\diagnostico_ampliado.csv",
+      "estado": "evaluado",
+      "filas": 2,
+      "columnas": 18,
+      "completitud_celdas_pct": 100.0,
+      "filas_duplicadas_completas": 0,
+      "unicidad_filas_completas_pct": 100.0,
+      "claves_evaluadas": [],
+      "duplicados_clave": null,
+      "columnas_linaje": [
+        "ids_bronce_entrenamiento",
+        "ids_bronce_prueba",
+        "origen_bronce",
+        "sha256_bronce",
+        "fecha_ingesta_utc",
+        "metodo_fecha_ingesta"
+      ],
+      "filas_con_origen_y_hash": 2,
+      "trazabilidad_origen_hash_pct": 100.0,
+      "nulos_por_columna": {}
+    }
+  ]
+}

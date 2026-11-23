@@ -1,0 +1,8 @@
+﻿producto,archivo,estado,filas,columnas,completitud_celdas_pct,filas_duplicadas_completas,unicidad_filas_completas_pct,duplicados_clave,filas_con_origen_y_hash,trazabilidad_origen_hash_pct
+registros_trimestrales,data\oro\registros_trimestrales.parquet,evaluado,383,10,100.0,0,100.0,,383.0,100.0
+indice_shf_colima,data\oro\indice_shf_colima.parquet,evaluado,258,15,91.11,0,100.0,0.0,258.0,100.0
+comparacion_municipal,data\oro\comparacion_municipal.parquet,evaluado,131,16,100.0,0,100.0,,,
+variables_analiticas_sniiv,data\oro\variables_analiticas_sniiv.parquet,evaluado,2140,22,100.0,0,100.0,,2140.0,100.0
+comparacion_modelos,data\oro\comparacion_modelos.csv,evaluado,8,16,93.75,0,100.0,,8.0,100.0
+pronosticos_exploratorios,data\oro\pronosticos_exploratorios.csv,evaluado,8,16,96.88,0,100.0,,8.0,100.0
+diagnostico_ampliado,data\oro\diagnostico_ampliado.csv,evaluado,2,18,100.0,0,100.0,,2.0,100.0
