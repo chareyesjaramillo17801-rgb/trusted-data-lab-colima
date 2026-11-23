@@ -1,39 +1,43 @@
 # Entrega E2 — TRUSTED DATA LAB | Observatorio inmobiliario de Colima
 
-**Modalidad:** individual. **Estado:** implementación local probada; cierre y tag `e2` pendientes.
-**Repositorio:** https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima
-**Commit base E2 publicado:** [`1bdd739`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/commit/1bdd739) (22/11/2026, 14:36 -0600). Las correcciones posteriores se documentarán con su propio commit.
+**Modalidad:** individual. **Corte documental:** 22 de noviembre de 2026. **Estado:** implementaciones y evaluaciones internas publicadas en `main`; auditoría cruzada externa pendiente.
 
-## Ingeniería de Datos: fuente especializada
+**Repositorio:** https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima  
+**Último commit de Calidad confirmado:** [`5b83f12`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/commit/5b83f12).  
+**Tag `e2`:** https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/tree/e2 — **advertencia:** apunta a la versión anterior a la integración de Estadística y Calidad; para revisar todas las evidencias recientes usar `main` hasta definir el cierre de versión.
 
-- **Fuente oficial:** INEGI, Marco Geoestadístico, [servicio municipal de Colima](https://gaia.inegi.org.mx/wscatgeo/v2/geo/mgem/06).
-- **Bronce:** `data/bronce/inegi/` (respuestas originales, fecha, URL y SHA-256).
-- **Transformación:** [`pipeline/geoespacial_e2.py`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/pipeline/geoespacial_e2.py); valida 10 geometrías municipales y genera `data/oro/municipios_colima.geojson`.
-- **Unión espacial verificable:** `pipeline/cruce_espacial_e2.py` calcula puntos representativos *derivados de los polígonos oficiales* y los relaciona con los mismos polígonos mediante `gpd.sjoin(..., predicate="within")`. Resultado local: **10/10 correspondencias**, sin discordancias. **Alcance:** validación geométrica, no georreferenciación de viviendas ni relación espacial independiente con los indicadores inmobiliarios.
-- **Mapa:** [`dashboard/app.py`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/dashboard/app.py), con polígonos seleccionables y fondo OpenStreetMap. Funcionamiento local probado; **publicación actualizada en Streamlit Cloud aún no comprobada**.
-- **Pruebas:** `tests/test_e2.py`; última ejecución local comunicada: **12 pruebas Pytest aprobadas** y **Ruff sin errores**.
+## 1. Ingeniería de Datos — fuente especializada y cruce espacial
 
-## Ingeniería de Datos: linaje Bronce → Plata → Oro
+- **Fuente oficial:** INEGI, Marco Geoestadístico, [municipios de Colima](https://gaia.inegi.org.mx/wscatgeo/v2/geo/mgem/06).
+- **Bronce:** `data/bronce/inegi/` con respuesta original, URL, fecha y hash SHA-256.
+- **Transformación:** [`pipeline/geoespacial_e2.py`](../../pipeline/geoespacial_e2.py), con 10 geometrías municipales y producto `data/oro/municipios_colima.geojson`.
+- **Cruce espacial:** [`pipeline/cruce_espacial_e2.py`](../../pipeline/cruce_espacial_e2.py) emplea `gpd.sjoin()` entre puntos representativos **derivados de los polígonos oficiales** y los mismos polígonos. Verificación local: 10/10 coincidencias. Es una **validación geométrica interna**, no georreferenciación de viviendas ni vinculación espacial independiente de registros inmobiliarios.
+- **Dashboard:** [`dashboard/app.py`](../../dashboard/app.py); mapa municipal interactivo con OpenStreetMap. Se comprobó la interacción municipal en el [dashboard desplegado](https://trusted-data-lab-colima-8dbknfsg2lhzub8uvrrhqo.streamlit.app).
+- **Linaje:** [`docs/E2/LINAJE.md`](LINAJE.md) documenta IDs, rutas Bronce, hashes, agregados y límites de trazabilidad. SNIIV: 2,140 registros; SHF Colima: 258; comparaciones municipales Oro: 131; INEGI: 10 municipios.
+- **Ética:** [`docs/etica-datos.md`](../etica-datos.md), con fuentes, términos, licencias, `robots.txt`, sesgos, privacidad y límites de interpretación.
+- **Límite de fechas SHF:** `retrieved_date: 2026-11-09` registra incorporación sin hora exacta; `mtime_archivo_no_verificado` no constituye prueba de fecha de descarga.
 
-- [`docs/E2/LINAJE.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/E2/LINAJE.md) describe IDs de observaciones, rutas Bronce, SHA-256, agregados y productos analíticos.
-- SNIIV: 2,140 registros procesados; SHF Colima: 258 registros (incluye agregado estatal, **no** municipio de Colima); 131 comparaciones municipales Oro; INEGI: 10 municipios.
-- Los modelos conservan IDs históricos: 8 comparaciones (78 entrenamiento + 8 prueba), 8 pronósticos (86 referencias) y 2 diagnósticos (86 referencias).
-- **Limitación SHF:** el pipeline utiliza la fecha de modificación del archivo como `fecha_ingesta_utc`, marcada `mtime_archivo_no_verificado`. Sin embargo, el archivo `data/bronce/shf/Indice_SHF_datos_abiertos_2_trim_2026.metadata.json` consigna `retrieved_date: 2026-11-09` como fecha de incorporación al proyecto **sin hora exacta**. La fecha de archivo no debe presentarse como captura UTC confirmada.
+## 2. Análisis Estadístico — diseños, ANOVA y confirmación
 
-## Ingeniería de Datos: ética y legalidad
+- **Informe:** [`docs/E2/estadistica/INFORME_ESTADISTICA_E2.md`](estadistica/INFORME_ESTADISTICA_E2.md).
+- **Reproducción:** [`experimentos/e2_estadistica.py`](../../experimentos/e2_estadistica.py) y [`experimentos/README_E2.md`](../../experimentos/README_E2.md).
+- **Resultados originales:** [`resultados/estadistica_e2/`](../../resultados/estadistica_e2/) — corridas aleatorizadas, ANOVA de los diseños factoriales 2³, 3×2 y 2⁴, fracción 2^(4−1), diagnósticos, medias y confirmación.
+- **Ejecución local comunicada:** 90 corridas principales; fracción de 24 observaciones **seleccionadas del diseño completo** (no experimento independiente); 10 mediciones de confirmación. Reducción media reportada del tiempo de procesamiento: **47.73 %** (248.95 ms a 130.14 ms), para ese entorno y esa comparación.
+- **Interpretación y límites:** los diagnósticos de normalidad requieren cautela en 3×2 (Shapiro p≈0.0423) y fraccionado (p≈0.0214); el fraccionado tiene alias por `I=ABCD`, entre otros `AB=CD`. Las mediciones de rendimiento no son predicciones del mercado inmobiliario.
+- **Gráficas:** [`docs/E2/estadistica/graficas/`](estadistica/graficas/).
 
-[`docs/etica-datos.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/etica-datos.md) documenta fuentes SNIIV, SHF e INEGI; términos de uso, atribución, `robots.txt`, privacidad, sesgos y límites de interpretación. La revisión de licencias individuales se mantiene diferenciada de los permisos generales.
+## 3. Calidad — ISO/IEC 25010, 25012 y auditoría
 
-## Estadística: evidencia de E2
+- **Informe y matriz:** [`docs/E2/calidad/INFORME_CALIDAD_E2.md`](calidad/INFORME_CALIDAD_E2.md) y [`PLAN_EVALUACION.md`](calidad/PLAN_EVALUACION.md). Incluyen evaluación de ISO/IEC 25010 y contraste de ISO/IEC 9126, SQuaRE e ISO 9001, con los límites de las evidencias disponibles.
+- **Programa de evaluación:** [`calidad/evaluacion_e2.py`](../../calidad/evaluacion_e2.py).
+- **Métricas verificables:** [`resultados/calidad_e2/`](../../resultados/calidad_e2/): siete productos Oro evaluados, cero filas completamente duplicadas y cuatro productos con completitud del 100 %. Otros productos requieren interpretación de nulos estructurales y comprobación adicional de trazabilidad.
+- **Verificaciones de código:** Ruff sin errores en el módulo de Calidad y 12 pruebas Pytest aprobadas en la ejecución local comunicada.
+- **Auditoría cruzada:** [`docs/E2/calidad/PLANTILLA_AUDITORIA_CRUZADA.md`](calidad/PLANTILLA_AUDITORIA_CRUZADA.md). **No ejecutada todavía**: falta recibir el repositorio del equipo asignado y la auditoría de retorno. No se reportan defectos externos no comprobados.
 
-**No acreditada en el repositorio revisado:** diseño factorial 2³ con aleatorización y réplicas, ANOVA de dos factores con tres niveles en uno, comparación factorial completo/fraccionado 2⁴ vs. 2^(4−1), análisis de residuos y corrida confirmatoria. Los pronósticos existentes de E1 **no sustituyen** estas evidencias. Deben realizarse y enlazarse antes de afirmar cumplimiento integral.
+## 4. Relatoría, evidencias y cierre
 
-## Calidad: evidencia de E2
+- **Relatoría E2:** [`docs/relatoria-E2.md`](../relatoria-E2.md), con cronología, decisiones, incidencias, límites y declaración de uso de IA.
+- **Bitácoras:** [`calidad/defectos-individual.csv`](../../calidad/defectos-individual.csv) y [`calidad/tiempo-individual.csv`](../../calidad/tiempo-individual.csv). El tiempo E2 no se presenta como cronometraje exacto cuando no existe registro.
+- **Pendientes reales:** auditoría cruzada bidireccional; comprobación de los hallazgos de nulos/linaje; verificación de CI tras el commit documental; acordar versión final del tag `e2` para que incluya las tres materias; confirmar canal oficial de entrega cuando sea comunicado.
 
-**No acreditada en el repositorio revisado:** evaluación E2 con métricas ISO/IEC 25010 y 25012, contraste 9126/SQuaRE/9001 y auditoría cruzada de otro equipo con recepción de auditoría. `docs/E1/PLAN_SQA.md` es un plan previo, no prueba de ejecución de E2. La auditoría externa depende de un tercero; no debe inventarse.
-
-## Evidencias y cierre
-
-- [`docs/relatoria-E2.md`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/docs/relatoria-E2.md): cronología, incidencias y limitaciones.
-- [`calidad/defectos-individual.csv`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/calidad/defectos-individual.csv) y [`calidad/tiempo-individual.csv`](https://github.com/chareyesjaramillo17801-rgb/trusted-data-lab-colima/blob/main/calidad/tiempo-individual.csv): bitácoras, con registro temporal de E2 no medido.
-- **Pendientes antes del cierre:** verificar Streamlit Cloud; correr CI después del commit de cierre; confirmar alcance de evaluación de las tres materias; crear tag `e2` sobre el commit final; enviar enlace al formulario oficial.
+**Nota:** la existencia de archivos y las pruebas aprobadas no acreditan por sí solas todos los criterios de la rúbrica; la evaluación docente y la auditoría externa siguen pendientes.
