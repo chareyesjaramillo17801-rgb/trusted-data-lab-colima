@@ -32,7 +32,7 @@
 - **Programa de evaluación:** [`calidad/evaluacion_e2.py`](../../calidad/evaluacion_e2.py).
 - **Métricas verificables:** [`resultados/calidad_e2/`](../../resultados/calidad_e2/): siete productos Oro evaluados, cero filas completamente duplicadas y cuatro productos con completitud del 100 %. Otros productos requieren interpretación de nulos estructurales y comprobación adicional de trazabilidad.
 - **Verificaciones de código:** Ruff sin errores en el módulo de Calidad y 12 pruebas Pytest aprobadas en la ejecución local comunicada.
-- **Auditoría cruzada:** [`docs/E2/calidad/PLANTILLA_AUDITORIA_CRUZADA.md`](calidad/PLANTILLA_AUDITORIA_CRUZADA.md). **No ejecutada todavía**: falta recibir el repositorio del equipo asignado y la auditoría de retorno. No se reportan defectos externos no comprobados.
+- **Auditoría cruzada:** [Informe de auditoría al Observatorio Turístico de Colima](calidad/AUDITORIA_CRUZADA_E2_TDL_TURISTICO.md). Realizada el 23 de noviembre de 2026 sobre el commit `73e741ca3bc9130ad63bb0bb2f6a1a865210b359`. Se documentaron cuatro hallazgos: dos mayores y dos menores, con comprobaciones estáticas de archivos CSV, JSON, código y workflows. No se ejecutó la batería de pruebas del equipo auditado.
 
 ## 4. Relatoría, evidencias y cierre
 
